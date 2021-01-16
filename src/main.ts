@@ -1,29 +1,15 @@
-import express from 'express';
+import ExpressApp from './Express';
 
 class EismokyklaApi {
-  nodeEnv: string;
-  expressApp: express.Application;
+  expressApp: ExpressApp;
 
-  constructor(nodeEnv: string) {
-    this.nodeEnv = nodeEnv;
-    this.expressApp = express();
+  constructor() {
+    this.expressApp = new ExpressApp();
   }
 
   start() {
-    this.startExpress();
-    console.log(`Eismokykla API started working... (ENV: ${this.nodeEnv})`);
-  }
-
-  private startExpress() {
-    this.expressApp.get('/', (_, res) => {
-      res.send('Hello, world!');
-    });
-
-    this.expressApp.get('/test', (_, res) => {
-      res.send('Hello, test!');
-    });
-
-    this.expressApp.listen(<string>process.env.PORT);
+    this.expressApp.start();
+    console.log('Eismokykla API started...');
   }
 }
 

@@ -1,4 +1,4 @@
 import EismokyklaApi from './main';
 
-const eismokyklaApi = new EismokyklaApi(<string>process.env.NODE_ENV);
+const eismokyklaApi = new EismokyklaApi();
 eismokyklaApi.start();
