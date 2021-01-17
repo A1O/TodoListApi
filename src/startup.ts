@@ -1,4 +1,4 @@
-import EismokyklaApi from './main';
+import TodoListApi from './main';
 
-const eismokyklaApi = new EismokyklaApi();
-eismokyklaApi.start();
+const todoListApi = new TodoListApi();
+todoListApi.start();

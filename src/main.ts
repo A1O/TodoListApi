@@ -1,6 +1,6 @@
 import ExpressApp from './Express';
 
-class EismokyklaApi {
+class TodoListApi {
   expressApp: ExpressApp;
 
   constructor() {
@@ -9,8 +9,7 @@ class EismokyklaApi {
 
   start() {
     this.expressApp.start();
-    console.log('Eismokykla API started...');
   }
 }
 
-export default EismokyklaApi;
+export default TodoListApi;

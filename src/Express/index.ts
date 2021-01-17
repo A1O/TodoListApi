@@ -26,7 +26,7 @@ class ExpressApp {
 
   private startListening() {
     this.app.listen(this.port);
-    console.log(`Express app is listening on ${this.port}...`);
+    console.log(`Express app is started and listening on ${this.port}...`);
   }
 }
 
