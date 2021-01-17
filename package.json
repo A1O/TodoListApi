@@ -1,5 +1,5 @@
 {
-  "name": "eismokyklaapi",
+  "name": "todolistapi",
   "version": "1.0.0",
   "description": "",
   "main": "src/startup.ts",
@@ -7,7 +7,7 @@
     "start": "nodemon",
     "lint": "eslint src --ext .ts"
   },
-  "author": "",
+  "author": "Domas Pozniakas",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
