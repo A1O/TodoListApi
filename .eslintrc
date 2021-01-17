@@ -40,7 +40,14 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [".ts", ".tsx"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true
+      },
+      "alias": {
+        "map": [["#/", "./src/"]],
+        "extensions": [".ts"]
       }
     }
   }

@@ -1,4 +1,4 @@
-import TodoListApi from './main';
+import TodoListApi from './TodoListApi';
 
 const todoListApi = new TodoListApi();
 todoListApi.start();
