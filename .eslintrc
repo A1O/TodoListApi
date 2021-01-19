@@ -1,54 +1,5 @@
 {
-  "plugins": ["@typescript-eslint", "prettier"],
-  "extends": [
-    "airbnb-base",
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
-  "env": {
-    "es6": true,
-    "node": true,
-    "mocha": true
-  },
-  "rules": {
-    "lines-between-class-members": "off",
-    "consistent-return": "off",
-    "prettier/prettier": "error",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "no-console": "off",
-    "no-shadow": "off",
-    "object-curly-spacing": ["error", "always"],
-    "no-non-null-assertion": "off",
-    "import/prefer-default-export": "off",
-    "no-param-reassign": [
-      "error",
-      {
-        "props": false
-      }
-    ],
-    "import/no-unresolved": "error",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "ts": "never"
-      }
-    ]
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".ts", ".tsx", ".js", ".jsx"]
-      },
-      "typescript": {
-        "alwaysTryTypes": true
-      },
-      "alias": {
-        "map": [["#/", "./src/"]],
-        "extensions": [".ts"]
-      }
-    }
+  "parserOptions": {
+    "project": "./tsconfig.json"
   }
 }
