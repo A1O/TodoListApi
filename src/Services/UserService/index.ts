@@ -1,10 +1,9 @@
-import SqlDatabase from '#SqlDatabase';
 import express from 'express';
-import { v4 as uuidv4 } from 'uuid';
+import SqlDatabase from '#SqlDatabase';
 import JsonWebToken from './JsonWebToken';
-import { IUser } from './types';
+import { IUser } from '#types';
 
-class AuthService {
+class UserService {
   private jwtActions: JsonWebToken;
   private sqlDatabase: SqlDatabase;
 
@@ -62,4 +61,4 @@ class AuthService {
   }
 }
 
-export default AuthService;
+export default UserService;

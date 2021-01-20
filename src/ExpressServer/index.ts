@@ -1,7 +1,8 @@
+import { IRunnable } from '#types';
 import bodyParser from 'body-parser';
-import express, { IRouterMatcher } from 'express';
+import express from 'express';
 import { Server } from 'http';
-import { ExpressGetMethod, ExpressMethod, ExpressUse, IRunnable } from './types';
+import { ExpressGetMethod, ExpressMethod, ExpressUse } from './types';
 
 class ExpressServer implements IRunnable {
   private app: express.Application;
