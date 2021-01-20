@@ -1,7 +1,7 @@
 import ExpressServer from '#ExpressServer';
 import { IRunnable } from './types';
 
-class TodoListApi implements IRunnable {
+class TodoListApiServer implements IRunnable {
   expressServer: ExpressServer;
 
   constructor() {
@@ -18,4 +18,4 @@ class TodoListApi implements IRunnable {
   }
 }
 
-export default TodoListApi;
+export default TodoListApiServer;
