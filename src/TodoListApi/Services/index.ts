@@ -1,11 +1,12 @@
 import ExpressServer from '#ExpressServer';
+import SqlDatabase from '#SqlDatabase';
 import AuthService from './AuthService';
 
 class Services {
   authService: AuthService;
 
-  constructor() {
-    this.authService = new AuthService();
+  constructor(sqlDatabase: SqlDatabase) {
+    this.authService = new AuthService(sqlDatabase);
   }
 
   loadServicesOnExpress(expressServer: ExpressServer) {

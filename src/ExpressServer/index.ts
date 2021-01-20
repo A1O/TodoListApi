@@ -28,7 +28,7 @@ class ExpressServer implements IRunnable {
 
   start() {
     this.startListening();
-    console.debug(`Express app is started and listening on ${this.port}...`);
+    console.debug(`Express is started and listening on ${this.port}...`);
   }
 
   stop() {
