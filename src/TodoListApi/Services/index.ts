@@ -1,17 +1,17 @@
 import ExpressServer from '#ExpressServer';
-import UserService from './UserService';
+import AuthService from './AuthService';
 
 class Services {
-  userService: UserService;
+  authService: AuthService;
 
   constructor() {
-    this.userService = new UserService();
+    this.authService = new AuthService();
   }
 
   loadServicesOnExpress(expressServer: ExpressServer) {
-    const userServiceRouter = this.userService.prepareExpressRouter();
+    const authServiceRouter = this.authService.prepareExpressRouter();
 
-    expressServer.use('/auth', userServiceRouter);
+    expressServer.use('/auth', authServiceRouter);
   }
 }
 

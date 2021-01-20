@@ -5,7 +5,7 @@ import { IUser } from './types';
 
 const USERS: IUser[] = [];
 
-class UserService {
+class AuthService {
   private jwtActions: JsonWebToken;
 
   constructor() {
@@ -60,4 +60,4 @@ class UserService {
   }
 }
 
-export default UserService;
+export default AuthService;
