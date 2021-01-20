@@ -8,8 +8,7 @@ class UserService {
   private sqlDatabase: SqlDatabase;
 
   constructor(sqlDatabase: SqlDatabase) {
-    const jwtSecretKey = <string>process.env.JWT_SECRET_KEY;
-    this.jwtActions = new JsonWebToken(jwtSecretKey);
+    this.jwtActions = new JsonWebToken(<string>process.env.JWT_SECRET_KEY);
     this.sqlDatabase = sqlDatabase;
   }
 
