@@ -1,4 +1,4 @@
-import TodoListApiServer from '#TodoListApiServer';
+import TodoListApi from '#TodoListApi';
 
-const todoListApi = new TodoListApiServer();
+const todoListApi = new TodoListApi();
 todoListApi.start();

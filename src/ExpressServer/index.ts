@@ -1,6 +1,7 @@
+import bodyParser from 'body-parser';
 import express, { IRouterMatcher } from 'express';
 import { Server } from 'http';
-import { ExpressGetMethod, ExpressMethod, IRunnable } from './types';
+import { ExpressGetMethod, ExpressMethod, ExpressUse, IRunnable } from './types';
 
 class ExpressServer implements IRunnable {
   private app: express.Application;
@@ -11,14 +12,18 @@ class ExpressServer implements IRunnable {
   post: ExpressMethod;
   put: ExpressMethod;
   delete: ExpressMethod;
+  use: ExpressUse;
 
   constructor(port?: number) {
-    this.app = express();
     this.port = port || 3000;
-    this.get = this.app.get;
-    this.post = this.app.post;
-    this.put = this.app.put;
-    this.delete = this.app.delete;
+    this.app = express();
+    this.setParsers();
+
+    this.get = this.app.get.bind(this.app);
+    this.post = this.app.post.bind(this.app);
+    this.put = this.app.put.bind(this.app);
+    this.delete = this.app.delete.bind(this.app);
+    this.use = this.app.use.bind(this.app);
   }
 
   start() {
@@ -30,6 +35,11 @@ class ExpressServer implements IRunnable {
     if (this.stopListening()) {
       console.debug(`Express app was stopped...`);
     }
+  }
+
+  private setParsers() {
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json());
   }
 
   private startListening() {
