@@ -1,23 +1,36 @@
+import httpContext from 'express-http-context';
+import bodyParser from 'body-parser';
 import express from 'express';
 import { Server } from 'http';
-import { IExpressServer } from './types';
+import { IRunnable } from '#types';
+import { ExpressGetMethod, ExpressMethod, ExpressUse } from './types';
 
-class ExpressServer implements IExpressServer {
-  app: express.Application;
-  areRoutesSetted: boolean;
-  httpServer?: Server;
+class ExpressServer implements IRunnable {
+  private app: express.Application;
+  private httpServer?: Server;
   port: number;
 
+  get: ExpressGetMethod;
+  post: ExpressMethod;
+  put: ExpressMethod;
+  delete: ExpressMethod;
+  use: ExpressUse;
+
   constructor(port?: number) {
-    this.app = express();
-    this.areRoutesSetted = false;
     this.port = port || 3000;
+    this.app = express();
+    this.setExpressUsings();
+
+    this.get = this.app.get.bind(this.app);
+    this.post = this.app.post.bind(this.app);
+    this.put = this.app.put.bind(this.app);
+    this.delete = this.app.delete.bind(this.app);
+    this.use = this.app.use.bind(this.app);
   }
 
   start() {
-    this.setRoutes();
     this.startListening();
-    console.debug(`Express app is started and listening on ${this.port}...`);
+    console.debug(`Express is started and listening on ${this.port}...`);
   }
 
   stop() {
@@ -26,18 +39,10 @@ class ExpressServer implements IExpressServer {
     }
   }
 
-  private setRoutes() {
-    if (!this.areRoutesSetted) {
-      this.app.get('/', (_, res) => {
-        res.send('Hello, world!');
-      });
-
-      this.app.get('/test', (_, res) => {
-        res.send('Hello, test!');
-      });
-
-      this.areRoutesSetted = true;
-    }
+  private setExpressUsings() {
+    this.app.use(bodyParser.urlencoded({ extended: false }));
+    this.app.use(bodyParser.json());
+    this.app.use(httpContext.middleware);
   }
 
   private startListening() {
@@ -56,3 +61,4 @@ class ExpressServer implements IExpressServer {
 
 export default ExpressServer;
 export * from './types';
+export * from './Middleware';

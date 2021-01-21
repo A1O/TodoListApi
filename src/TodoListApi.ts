@@ -1,33 +1,31 @@
-import ExpressServer, { IExpressServer } from '#ExpressServer';
+import ExpressServer from '#ExpressServer';
+import SqlDatabase from '#SqlDatabase';
+import { IRunnable } from './types';
+import Services from './Services';
 
-class TodoListApi {
-  expressServer: IExpressServer;
+class TodoListApi implements IRunnable {
+  sqlDatabase: SqlDatabase;
+  expressServer: ExpressServer;
+  services: Services;
 
   constructor() {
-    const expressServerPort = parseInt(<string>process.env.PORT, 10);
-    this.expressServer = new ExpressServer(expressServerPort);
+    this.expressServer = new ExpressServer(parseInt(<string>process.env.PORT, 10));
+    this.sqlDatabase = new SqlDatabase({
+      database: <string>process.env.DB_NAME,
+      user: <string>process.env.DB_USER,
+      password: <string>process.env.DB_PASS,
+      host: <string>process.env.DB_HOST,
+    });
+    this.services = new Services(this.sqlDatabase);
   }
 
   start() {
-    // All servers will be started here
-    /*
-    Example:
-      constructor() {
-        this.sqlDatabase = new SqlDatabase(...);
-        this.expressServer = new ExpressServer(...);
-      }
-
-      start() {
-        this.sqlDatabase.connect();
-        this.expressServer.setSqlDatabase(this.sqlDatabase);
-        this.expressServer.start();
-      }
-    */
+    this.sqlDatabase.connect();
     this.expressServer.start();
+    this.services.loadServicesOnExpress(this.expressServer);
   }
 
   stop() {
-    // All server will be stoped here
     this.expressServer.stop();
   }
 }

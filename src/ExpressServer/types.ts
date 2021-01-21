@@ -1,16 +1,9 @@
-import express from 'express';
-import { Server } from 'http';
+import express, { IRouterHandler, IRouterMatcher } from 'express';
 
-export interface IExpressServer {
-  app: express.Application;
-  areRoutesSetted: boolean;
-  httpServer?: Server;
-  port: number;
+export type ExpressMethod = IRouterMatcher<express.Application>;
 
-  start: () => void;
-  stop: () => void;
-}
+export type ExpressGetMethod = ((name: string) => any) & ExpressMethod;
 
-export interface ITest {
-  a: string;
-}
+export type ExpressUse = IRouterHandler<express.Application> &
+  IRouterMatcher<express.Application> &
+  ((...handlers: []) => express.Application);
