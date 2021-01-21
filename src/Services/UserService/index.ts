@@ -1,7 +1,6 @@
 import httpContext from 'express-http-context';
 import express from 'express';
 import SqlDatabase from '#SqlDatabase';
-import { ITask, IUser } from '#types';
 import { authenticateJWT } from '#ExpressServer';
 import JsonWebToken from './JsonWebToken';
 import Service from '../Service';
@@ -14,7 +13,7 @@ class UserService extends Service {
     this.jwtActions = new JsonWebToken(<string>process.env.JWT_SECRET_KEY);
   }
 
-  private async login({ username, password }: IUser) {
+  async login({ username, password }: { username: string; password: string }) {
     const user = await this.sqlDatabase.UserRepository.getUser({ username, password });
 
     if (!user) {
@@ -24,20 +23,20 @@ class UserService extends Service {
     return this.jwtActions.sign(user.id);
   }
 
-  private async register({ username, password }: IUser) {
+  async register({ username, password }: { username: string; password: string }) {
     // TODO: Check if valid data
 
     const userExists = await this.sqlDatabase.UserRepository.getUser({ username });
-
     if (userExists) {
       throw new Error('User with this username already exists!');
     }
 
     const user = await this.sqlDatabase.UserRepository.createUser(username, password);
+
     return user;
   }
 
-  private async createTask({ title, description }: ITask) {
+  async createTask({ title, description }: { title: string; description?: string }) {
     const userId = httpContext.get('userId');
     const user = await this.sqlDatabase.UserRepository.getUser(userId);
 
