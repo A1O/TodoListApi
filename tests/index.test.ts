@@ -1,20 +1,18 @@
 import UserService from '../src/Services/UserService';
+import SqlDatabase from '../src/SqlDatabase';
+
+jest.mock('../src/SqlDatabase');
+
+let sqlDatabase: SqlDatabase;
+let userService: UserService;
+
+beforeAll(() => {
+  sqlDatabase = new SqlDatabase({ database: '', user: '', password: '', host: '' });
+  userService = new UserService(sqlDatabase);
+});
 
 describe('UserRepository register() method', () => {
   it('should create a user successfully', async () => {
-    const UserRepository = {
-      getUser: () => null,
-      createUser: (username: string, password: string) => ({
-        id: 'test',
-        username,
-        password,
-      }),
-    };
-    const sqlDatabase = {
-      UserRepository,
-    };
-    const userService = new UserService(sqlDatabase as any);
-
     const result = await userService.register({
       username: 'Testas',
       password: 'TestoPW',
