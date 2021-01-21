@@ -59,3 +59,4 @@ class ExpressServer implements IRunnable {
 
 export default ExpressServer;
 export * from './types';
+export * from './Middleware';
