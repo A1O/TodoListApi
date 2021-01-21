@@ -2,16 +2,16 @@ import httpContext from 'express-http-context';
 import express from 'express';
 import SqlDatabase from '#SqlDatabase';
 import { ITask, IUser } from '#types';
-import JsonWebToken from './JsonWebToken';
 import { authenticateJWT } from '#ExpressServer';
+import JsonWebToken from './JsonWebToken';
+import Service from '../Service';
 
-class UserService {
+class UserService extends Service {
   private jwtActions: JsonWebToken;
-  private sqlDatabase: SqlDatabase;
 
   constructor(sqlDatabase: SqlDatabase) {
+    super(sqlDatabase);
     this.jwtActions = new JsonWebToken(<string>process.env.JWT_SECRET_KEY);
-    this.sqlDatabase = sqlDatabase;
   }
 
   private async login({ username, password }: IUser) {
