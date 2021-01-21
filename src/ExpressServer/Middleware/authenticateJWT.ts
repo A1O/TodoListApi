@@ -3,11 +3,10 @@ import httpContext from 'express-http-context';
 import jwt from 'jsonwebtoken';
 
 const authenticateJWT = (req: Request, res: Response, next: NextFunction) => {
-  const authHeader = req.headers.authorization;
+  const token = req.headers.authorization;
 
-  if (authHeader) {
+  if (token) {
     const secretKey = <string>process.env.JWT_SECRET_KEY;
-    const token = authHeader.split(' ')[1];
 
     jwt.verify(token, secretKey, (err, payload) => {
       if (err || !payload || !('id' in payload)) {

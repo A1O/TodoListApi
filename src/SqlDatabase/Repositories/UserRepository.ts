@@ -1,4 +1,3 @@
-import { IUser } from '#types';
 import User from '../Models/User.model';
 
 class UserRepository {
@@ -13,7 +12,17 @@ class UserRepository {
   }
 
   async getUser({ username, password }: { username?: string; password?: string }) {
-    return this.User.findOne({ where: { username, password } });
+    const where: { username?: string; password?: string } = {};
+
+    if (username) {
+      where.username = username;
+    }
+
+    if (password) {
+      where.password = password;
+    }
+
+    return this.User.findOne({ where: where || undefined });
   }
 }
 

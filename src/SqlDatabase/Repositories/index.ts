@@ -20,7 +20,7 @@ export default class Repositories {
   setAssociations() {
     this.User.hasMany(Task, {
       sourceKey: 'id',
-      foreignKey: 'taskId',
+      foreignKey: 'userId',
       as: 'tasks',
     });
   }

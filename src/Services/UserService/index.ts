@@ -39,9 +39,24 @@ class UserService {
 
   private async createTask({ title, description }: ITask) {
     const userId = httpContext.get('userId');
-    const user = this.sqlDatabase.UserRepository.getUser(userId);
+    const user = await this.sqlDatabase.UserRepository.getUser(userId);
 
-    return user;
+    if (!user) {
+      throw new Error(`User not found in task creation (id: ${userId})`);
+    }
+
+    return user.createTask({ title, description });
+  }
+
+  private async getUserTasks() {
+    const userId = httpContext.get('userId');
+    const user = await this.sqlDatabase.UserRepository.getUser(userId);
+
+    if (!user) {
+      throw new Error(`User not found in task creation (id: ${userId})`);
+    }
+
+    return user.getTasks();
   }
 
   prepareExpressRouter() {
@@ -68,6 +83,15 @@ class UserService {
     router.post('/task', authenticateJWT, async (req, res) => {
       try {
         const result = await this.createTask(req.body);
+        res.send(result);
+      } catch (error) {
+        res.status(400).send(error.message);
+      }
+    });
+
+    router.get('/task', authenticateJWT, async (req, res) => {
+      try {
+        const result = await this.getUserTasks();
         res.send(result);
       } catch (error) {
         res.status(400).send(error.message);
