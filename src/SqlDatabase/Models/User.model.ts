@@ -1,5 +1,5 @@
-import { IUser } from '#types';
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
+import { IUser } from '#types';
 
 interface IUserCreationAttributes extends Optional<IUser, 'id'> {}
 

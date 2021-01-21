@@ -1,7 +1,7 @@
 import express from 'express';
 import SqlDatabase from '#SqlDatabase';
-import JsonWebToken from './JsonWebToken';
 import { IUser } from '#types';
+import JsonWebToken from './JsonWebToken';
 
 class UserService {
   private jwtActions: JsonWebToken;
@@ -13,7 +13,7 @@ class UserService {
   }
 
   private async login({ username, password }: IUser) {
-    const user = await this.sqlDatabase.User.findOne({ where: { username, password } });
+    const user = await this.sqlDatabase.UserRepository.getUser({ username, password });
 
     if (!user) {
       throw new Error('The username and password you entered did not match our records.');
@@ -25,13 +25,13 @@ class UserService {
   private async register({ username, password }: IUser) {
     // TODO: Check if valid data
 
-    const userExists = (await this.sqlDatabase.User.count({ where: { username } })) > 0;
+    const userExists = await this.sqlDatabase.UserRepository.getUser({ username });
 
     if (userExists) {
       throw new Error('User with this username already exists!');
     }
 
-    const user = await this.sqlDatabase.User.create({ username, password });
+    const user = await this.sqlDatabase.UserRepository.createUser(username, password);
     return user;
   }
 

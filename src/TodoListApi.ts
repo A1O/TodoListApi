@@ -1,6 +1,6 @@
 import ExpressServer from '#ExpressServer';
 import SqlDatabase from '#SqlDatabase';
-import { IRunnable } from '#types';
+import { IRunnable } from './types';
 import Services from './Services';
 
 class TodoListApi implements IRunnable {

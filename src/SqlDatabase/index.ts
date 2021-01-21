@@ -1,8 +1,8 @@
 import { Sequelize } from 'sequelize';
-import SequelizeModels from './Models';
+import Repositories from './Repositories';
 import { DatabaseParams } from './types';
 
-class SqlDatabase extends SequelizeModels {
+class SqlDatabase extends Repositories {
   private sequelize: Sequelize;
 
   constructor({ database, user, password, host, dialect = 'mysql' }: DatabaseParams) {

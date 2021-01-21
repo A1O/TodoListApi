@@ -1,10 +1,3 @@
-import User, { setUserModelOnSequelize } from './User.model';
-import { Sequelize } from 'sequelize';
+import { setUserModelOnSequelize } from './User.model';
 
-export default class SequelizeModels {
-  User: typeof User;
-
-  constructor(sequelize: Sequelize) {
-    this.User = setUserModelOnSequelize(sequelize);
-  }
-}
+export { setUserModelOnSequelize };

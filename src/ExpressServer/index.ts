@@ -1,7 +1,7 @@
-import { IRunnable } from '#types';
 import bodyParser from 'body-parser';
 import express from 'express';
 import { Server } from 'http';
+import { IRunnable } from '#types';
 import { ExpressGetMethod, ExpressMethod, ExpressUse } from './types';
 
 class ExpressServer implements IRunnable {
