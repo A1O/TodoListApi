@@ -13,7 +13,7 @@ import {
 import { IUser } from '#types';
 import Task from './Task.model';
 
-interface IUserCreationAttributes extends Optional<IUser, 'id'> {}
+type IUserCreationAttributes = Optional<IUser, 'id'>;
 
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {
   public id!: string;

@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
 import { ITask } from '#types';
 
-interface ITaskCreationAttributes extends Optional<ITask, 'id' | 'description'> {}
+type ITaskCreationAttributes = Optional<ITask, 'id' | 'description'>;
 
 class Task extends Model<ITask, ITaskCreationAttributes> implements ITask {
   public id!: string;

@@ -1,6 +1,6 @@
+import { Sequelize } from 'sequelize';
 import Task from '#SqlDatabase/Models/Task.model';
 import User from '#SqlDatabase/Models/User.model';
-import { Sequelize } from 'sequelize';
 import { setUserModelOnSequelize, setTaskModelOnSequelize } from '../Models';
 import UserRepository from './UserRepository';
 
