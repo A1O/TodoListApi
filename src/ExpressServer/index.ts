@@ -1,3 +1,4 @@
+import httpContext from 'express-http-context';
 import bodyParser from 'body-parser';
 import express from 'express';
 import { Server } from 'http';
@@ -18,7 +19,7 @@ class ExpressServer implements IRunnable {
   constructor(port?: number) {
     this.port = port || 3000;
     this.app = express();
-    this.setParsers();
+    this.setExpressUsings();
 
     this.get = this.app.get.bind(this.app);
     this.post = this.app.post.bind(this.app);
@@ -38,9 +39,10 @@ class ExpressServer implements IRunnable {
     }
   }
 
-  private setParsers() {
+  private setExpressUsings() {
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(bodyParser.json());
+    this.app.use(httpContext.middleware);
   }
 
   private startListening() {
