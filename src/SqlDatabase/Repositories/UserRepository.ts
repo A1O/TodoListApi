@@ -1,3 +1,4 @@
+import { IUser } from '#types';
 import User from '../Models/User.model';
 
 class UserRepository {

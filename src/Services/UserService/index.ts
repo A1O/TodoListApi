@@ -1,7 +1,9 @@
+import httpContext from 'express-http-context';
 import express from 'express';
 import SqlDatabase from '#SqlDatabase';
-import { IUser } from '#types';
+import { ITask, IUser } from '#types';
 import JsonWebToken from './JsonWebToken';
+import { authenticateJWT } from '#ExpressServer';
 
 class UserService {
   private jwtActions: JsonWebToken;
@@ -35,6 +37,13 @@ class UserService {
     return user;
   }
 
+  private async createTask({ title, description }: ITask) {
+    const userId = httpContext.get('userId');
+    const user = this.sqlDatabase.UserRepository.getUser(userId);
+
+    return user;
+  }
+
   prepareExpressRouter() {
     const router = express.Router();
 
@@ -50,6 +59,15 @@ class UserService {
     router.post('/register', async (req, res) => {
       try {
         const result = await this.register(req.body);
+        res.send(result);
+      } catch (error) {
+        res.status(400).send(error.message);
+      }
+    });
+
+    router.post('/task', authenticateJWT, async (req, res) => {
+      try {
+        const result = await this.createTask(req.body);
         res.send(result);
       } catch (error) {
         res.status(400).send(error.message);
