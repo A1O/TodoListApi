@@ -3,11 +3,10 @@ import SqlDatabase from '../src/SqlDatabase';
 
 jest.mock('../src/SqlDatabase');
 
-let sqlDatabase: SqlDatabase;
 let userService: UserService;
 
 beforeAll(() => {
-  sqlDatabase = new SqlDatabase({ database: '', user: '', password: '', host: '' });
+  const sqlDatabase = new SqlDatabase({ database: '', user: '', password: '', host: '' });
   userService = new UserService(sqlDatabase);
 });
 
