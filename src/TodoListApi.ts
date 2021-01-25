@@ -8,13 +8,8 @@ class TodoListApi implements IRunnable {
   expressServer: ExpressServer;
   services: Services;
 
-  constructor() {
-    this.sqlDatabase = new SqlDatabase({
-      database: <string>process.env.DB_NAME,
-      user: <string>process.env.DB_USER,
-      password: <string>process.env.DB_PASS,
-      host: <string>process.env.DB_HOST,
-    });
+  constructor(sqlDatabase: SqlDatabase) {
+    this.sqlDatabase = sqlDatabase;
     this.services = new Services(this.sqlDatabase);
     this.expressServer = new ExpressServer(parseInt(<string>process.env.PORT, 10));
   }
