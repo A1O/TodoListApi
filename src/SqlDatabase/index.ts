@@ -15,13 +15,13 @@ class SqlDatabase extends Repositories {
     this.sequelize = sequelize;
   }
 
-  connect() {
+  connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.sequelize
         .sync()
         .then(() => {
           console.log('Mysql connection established...');
-          resolve(null);
+          resolve();
         })
         .catch((err) => {
           console.error('Can not connect to MySQL database', err);
