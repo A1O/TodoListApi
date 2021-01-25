@@ -1,6 +1,6 @@
 import ExpressServer from '#ExpressServer';
 import SqlDatabase from '#SqlDatabase';
-import { IRunnable } from './types';
+import { IRunnable } from '../types';
 import Services from './Services';
 
 class TodoListApi implements IRunnable {
@@ -8,13 +8,10 @@ class TodoListApi implements IRunnable {
   expressServer: ExpressServer;
   services: Services;
 
-  constructor(sqlDatabase: SqlDatabase) {
+  constructor(sqlDatabase: SqlDatabase, expressServer: ExpressServer) {
     this.sqlDatabase = sqlDatabase;
+    this.expressServer = expressServer;
     this.services = new Services(this.sqlDatabase);
-    this.expressServer = new ExpressServer(parseInt(<string>process.env.PORT, 10));
-  }
-
-  load() {
     this.services.loadServicesOnExpress(this.expressServer);
   }
 

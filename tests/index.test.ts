@@ -1,4 +1,4 @@
-import UserService from '../src/Services/UserService';
+import UserService from '../src/TodoListApi/Services/UserService';
 import SqlDatabase from '../src/SqlDatabase';
 
 jest.mock('../src/SqlDatabase');

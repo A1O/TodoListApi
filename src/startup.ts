@@ -1,3 +1,4 @@
+import ExpressServer from '#ExpressServer';
 import SqlDatabase from '#SqlDatabase';
 import TodoListApi from '#TodoListApi';
 
@@ -7,7 +8,7 @@ const sqlDatabase = new SqlDatabase({
   password: <string>process.env.DB_PASS,
   host: <string>process.env.DB_HOST,
 });
-const todoListApi = new TodoListApi(sqlDatabase);
+const expressServer = new ExpressServer(parseInt(<string>process.env.PORT, 10));
 
-todoListApi.load();
+const todoListApi = new TodoListApi(sqlDatabase, expressServer);
 todoListApi.start();
