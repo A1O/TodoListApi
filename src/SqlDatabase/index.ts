@@ -16,14 +16,18 @@ class SqlDatabase extends Repositories {
   }
 
   connect() {
-    this.sequelize
-      .sync()
-      .then(() => {
-        console.log('Mysql connection established...');
-      })
-      .catch((err) => {
-        console.error('Can not connect to MySQL database', err);
-      });
+    return new Promise((resolve, reject) => {
+      this.sequelize
+        .sync()
+        .then(() => {
+          console.log('Mysql connection established...');
+          resolve(null);
+        })
+        .catch((err) => {
+          console.error('Can not connect to MySQL database', err);
+          reject(err);
+        });
+    });
   }
 
   disconnect() {

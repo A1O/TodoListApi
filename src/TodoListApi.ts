@@ -19,8 +19,9 @@ class TodoListApi implements IRunnable {
   }
 
   start() {
-    this.sqlDatabase.connect();
-    this.expressServer.start();
+    this.sqlDatabase.connect().then(() => {
+      this.expressServer.start();
+    });
   }
 
   stop() {
