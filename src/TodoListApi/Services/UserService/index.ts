@@ -61,10 +61,10 @@ class UserService extends Service {
   prepareExpressRouter() {
     const router = express.Router();
 
-    router.post('/login', async (req, res) => res.send(this.login(req.body)));
-    router.post('/register', async (req, res) => res.send(this.register(req.body)));
-    router.post('/task', authenticateJWT, async (req, res) => res.send(this.createTask(req.body)));
-    router.get('/task', authenticateJWT, async (_, res) => res.send(this.getUserTasks()));
+    router.post('/login', async (req, res) => res.send(await this.login(req.body)));
+    router.post('/register', async (req, res) => res.send(await this.register(req.body)));
+    router.post('/task', authenticateJWT, async (req, res) => res.send(await this.createTask(req.body)));
+    router.get('/task', authenticateJWT, async (_, res) => res.send(await this.getUserTasks()));
 
     return router;
   }

@@ -1,38 +1,14 @@
-import { Sequelize } from 'sequelize';
-import Repositories from './Repositories';
+import setSequelizeModels, { User } from './Models';
+import { UserRepository } from './Repositories';
 import { DatabaseParams } from './types';
+import SequelizeConnection from './SequelizeConnection';
 
-class SqlDatabase extends Repositories {
-  private sequelize: Sequelize;
+export default class SqlDatabase extends SequelizeConnection {
+  UserRepository: UserRepository;
 
   constructor({ database, user, password, host, dialect = 'mysql' }: DatabaseParams) {
-    const sequelize = new Sequelize(database, user, password, {
-      host,
-      dialect,
-      logging: false,
-    });
-    super(sequelize);
-    this.sequelize = sequelize;
-  }
-
-  connect(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.sequelize
-        .sync()
-        .then(() => {
-          console.log('Mysql connection established...');
-          resolve();
-        })
-        .catch((err) => {
-          console.error('Can not connect to MySQL database', err);
-          reject(err);
-        });
-    });
-  }
-
-  disconnect() {
-    return this.sequelize.close();
+    super({ database, user, password, host, dialect });
+    setSequelizeModels(this);
+    this.UserRepository = new UserRepository(User);
   }
 }
-
-export default SqlDatabase;
