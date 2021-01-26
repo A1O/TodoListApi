@@ -1,4 +1,4 @@
-import ExpressServer from '#ExpressServer';
+import { IExpressServer } from '#ExpressServer/types';
 import SqlDatabase from '#SqlDatabase';
 import UserService from './UserService';
 
@@ -9,7 +9,7 @@ class Services {
     this.userService = new UserService(sqlDatabase);
   }
 
-  loadServicesOnExpress(expressServer: ExpressServer) {
+  loadServicesOnExpress(expressServer: IExpressServer) {
     const userServiceRouter = this.userService.prepareExpressRouter();
 
     expressServer.use('/user', userServiceRouter);

@@ -2,10 +2,11 @@ import httpContext from 'express-http-context';
 import bodyParser from 'body-parser';
 import express from 'express';
 import { Server } from 'http';
-import { IRunnable } from '#types';
-import { ExpressGetMethod, ExpressMethod, ExpressUse } from './types';
+import { injectable } from 'inversify';
+import { ExpressGetMethod, ExpressMethod, ExpressUse, IExpressServer } from './types';
 
-class ExpressServer implements IRunnable {
+@injectable()
+class ExpressServer implements IExpressServer {
   private app: express.Application;
   private httpServer?: Server;
   port: number;
@@ -16,8 +17,8 @@ class ExpressServer implements IRunnable {
   delete: ExpressMethod;
   use: ExpressUse;
 
-  constructor(port?: number) {
-    this.port = port || 3000;
+  constructor() {
+    this.port = parseInt(<string>process.env.PORT, 10);
     this.app = express();
     this.setExpressUsings();
 
@@ -60,5 +61,4 @@ class ExpressServer implements IRunnable {
 }
 
 export default ExpressServer;
-export * from './types';
 export * from './Middleware';
