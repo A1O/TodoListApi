@@ -53,9 +53,8 @@ class UserService implements IUserService {
 
   async getUserTasks() {
     const userId = httpContext.get('userId');
-    console.log(userId);
     const user = await this._database._userRepository.getUser({ id: userId });
-    console.log(user?.id);
+
     if (!user) {
       throw new Error(`User not found in task creation (id: ${userId})`);
     }
