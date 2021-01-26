@@ -1,20 +1,24 @@
 import httpContext from 'express-http-context';
 import express from 'express';
-import SqlDatabase from '#SqlDatabase';
+import { inject, injectable } from 'inversify';
 import { authenticateJWT } from '#ExpressServer';
 import JsonWebToken from './JsonWebToken';
-import Service from '../Service';
+import { DependencyTypes } from '#Container/types';
+import { IDatabase } from '#SqlDatabase/types';
+import { ITaskInput, IUserInput, IUserService } from './types';
 
-class UserService extends Service {
+@injectable()
+class UserService implements IUserService {
+  @inject(DependencyTypes.IDatabase)
+  private _database!: IDatabase;
   private jwtActions: JsonWebToken;
 
-  constructor(sqlDatabase: SqlDatabase) {
-    super(sqlDatabase);
+  constructor() {
     this.jwtActions = new JsonWebToken(<string>process.env.JWT_SECRET_KEY);
   }
 
-  async login({ username, password }: { username: string; password: string }) {
-    const user = await this.sqlDatabase.UserRepository.getUser({ username, password });
+  async login({ username, password }: IUserInput) {
+    const user = await this._database._userRepository.getUser({ username, password });
 
     if (!user) {
       throw new Error('The username and password you entered did not match our records.');
@@ -23,22 +27,22 @@ class UserService extends Service {
     return this.jwtActions.sign(user.id);
   }
 
-  async register({ username, password }: { username: string; password: string }) {
+  async register({ username, password }: IUserInput) {
     // TODO: Check if valid data
 
-    const userExists = await this.sqlDatabase.UserRepository.getUser({ username });
+    const userExists = await this._database._userRepository.getUser({ username });
     if (userExists) {
       throw new Error('User with this username already exists!');
     }
 
-    const user = await this.sqlDatabase.UserRepository.createUser(username, password);
+    const user = await this._database._userRepository.createUser(username, password);
 
     return user;
   }
 
-  async createTask({ title, description }: { title: string; description?: string }) {
+  async createTask({ title, description }: ITaskInput) {
     const userId = httpContext.get('userId');
-    const user = await this.sqlDatabase.UserRepository.getUser(userId);
+    const user = await this._database._userRepository.getUser({ id: userId });
 
     if (!user) {
       throw new Error(`User not found in task creation (id: ${userId})`);
@@ -47,10 +51,11 @@ class UserService extends Service {
     return user.createTask({ title, description });
   }
 
-  private async getUserTasks() {
+  async getUserTasks() {
     const userId = httpContext.get('userId');
-    const user = await this.sqlDatabase.UserRepository.getUser(userId);
-
+    console.log(userId);
+    const user = await this._database._userRepository.getUser({ id: userId });
+    console.log(user?.id);
     if (!user) {
       throw new Error(`User not found in task creation (id: ${userId})`);
     }

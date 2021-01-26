@@ -1,17 +1,17 @@
-import { injectable } from 'inversify';
-import setSequelizeModels, { User } from './Models';
-import { UserRepository } from './Repositories';
+import { inject, injectable } from 'inversify';
+import setSequelizeModels from './Models';
 import { IDatabase } from './types';
 import SequelizeConnection from './SequelizeConnection';
 import { IUserRepository } from './Repositories/types';
+import { DependencyTypes } from '#Container/types';
 
 @injectable()
 export default class SqlDatabase extends SequelizeConnection implements IDatabase {
-  UserRepository: IUserRepository;
+  @inject(DependencyTypes.IUserRepository)
+  _userRepository!: IUserRepository;
 
   constructor() {
     super();
     setSequelizeModels(this.sequelize);
-    this.UserRepository = new UserRepository(User);
   }
 }

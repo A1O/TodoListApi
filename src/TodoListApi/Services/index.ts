@@ -1,18 +1,19 @@
+import { inject, injectable } from 'inversify';
 import { IExpressServer } from '#ExpressServer/types';
-import SqlDatabase from '#SqlDatabase';
-import UserService from './UserService';
+import { DependencyTypes } from '#Container/types';
+import { IUserService } from './UserService/types';
+import { IServices } from './types';
 
-class Services {
-  userService: UserService;
-
-  constructor(sqlDatabase: SqlDatabase) {
-    this.userService = new UserService(sqlDatabase);
-  }
+@injectable()
+class Services implements IServices {
+  @inject(DependencyTypes.IUserService)
+  _userService!: IUserService;
 
   loadServicesOnExpress(expressServer: IExpressServer) {
-    const userServiceRouter = this.userService.prepareExpressRouter();
+    const userServiceRouter = this._userService.prepareExpressRouter();
 
     expressServer.use('/user', userServiceRouter);
+    console.log('Services is mounted on Express server...');
   }
 }
 

@@ -16,5 +16,7 @@ export interface IDatabaseConnection {
 }
 
 export interface IDatabase extends IDatabaseConnection {
-  UserRepository: IUserRepository;
+  _userRepository: IUserRepository;
 }
+
+export * from './Repositories/types';
