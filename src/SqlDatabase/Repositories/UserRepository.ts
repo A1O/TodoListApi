@@ -1,6 +1,7 @@
 import User from '../Models/User.model';
+import { IUserRepository, UserInput } from './types';
 
-class UserRepository {
+class UserRepository implements IUserRepository {
   private User: typeof User;
 
   constructor(userModel: typeof User) {
@@ -11,7 +12,7 @@ class UserRepository {
     return this.User.create({ username, password });
   }
 
-  async getUser({ username, password }: { username?: string; password?: string }) {
+  async getUser({ username, password }: UserInput) {
     const where: { username?: string; password?: string } = {};
 
     if (username) {

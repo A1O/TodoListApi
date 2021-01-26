@@ -1,18 +1,28 @@
-import { Sequelize } from 'sequelize';
-import { DatabaseParams } from './types';
+import { injectable } from 'inversify';
+import { Dialect, Sequelize } from 'sequelize';
+import { IDatabaseConnection } from './types';
 
-class SequelizeConnection extends Sequelize {
-  constructor({ database, user, password, host, dialect = 'mysql' }: DatabaseParams) {
-    super(database, user, password, {
-      host,
-      dialect,
-      logging: false,
-    });
+@injectable()
+class SequelizeConnection implements IDatabaseConnection {
+  sequelize: Sequelize;
+
+  constructor() {
+    this.sequelize = new Sequelize(
+      <string>process.env.DB_NAME,
+      <string>process.env.DB_USER,
+      <string>process.env.DB_PASS,
+      {
+        host: <string>process.env.DB_HOST,
+        dialect: <Dialect>process.env.DB_DIALECT,
+        logging: false,
+      }
+    );
   }
 
   connect(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this.sync()
+      this.sequelize
+        .sync()
         .then(() => {
           console.log('Mysql connection established...');
           resolve();
@@ -25,7 +35,7 @@ class SequelizeConnection extends Sequelize {
   }
 
   disconnect() {
-    return this.close();
+    return this.sequelize.close();
   }
 }
 
