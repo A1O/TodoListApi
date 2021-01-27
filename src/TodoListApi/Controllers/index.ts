@@ -14,6 +14,7 @@ class Controllers implements IControllers {
   loadControllersOnExpress() {
     this._userController.loadUserControllerOnExpress();
     this._taskController.loadTaskControllerOnExpress();
+    console.log('Controllers loaded successfully...');
   }
 }
 
