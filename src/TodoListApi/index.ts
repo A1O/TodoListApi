@@ -3,7 +3,7 @@ import { DependencyTypes } from '#Container/types';
 import { ITodoListApi } from './types';
 import { IExpressServer } from '#ExpressServer/types';
 import { IDatabase } from '#SqlDatabase/types';
-import { IServices } from './Services/types';
+import { IControllers } from './Controllers/types';
 
 @injectable()
 class TodoListApi implements ITodoListApi {
@@ -11,12 +11,12 @@ class TodoListApi implements ITodoListApi {
   _expressServer!: IExpressServer;
   @inject(DependencyTypes.IDatabase)
   _database!: IDatabase;
-  @inject(DependencyTypes.IServices)
-  _services!: IServices;
+  @inject(DependencyTypes.IControllers)
+  _controllers!: IControllers;
 
   start() {
     this._database.connect().then(() => {
-      this._services.loadServicesOnExpress();
+      this._controllers.loadControllersOnExpress();
       this._expressServer.start();
     });
   }

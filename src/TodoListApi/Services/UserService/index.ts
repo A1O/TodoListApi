@@ -1,6 +1,5 @@
 import httpContext from 'express-http-context';
 import { inject, injectable } from 'inversify';
-import { authenticateJWT } from '#ExpressServer';
 import { DependencyTypes } from '#Container/types';
 import { IUserRepository } from '#SqlDatabase/types';
 import { IJsonWebToken, ITaskInput, IUserInput, IUserService } from './types';
@@ -58,16 +57,6 @@ class UserService implements IUserService {
     }
 
     return user.getTasks();
-  }
-
-  loadExpressRoutes() {
-    this._expressServer.post('/user/login', async ({ body }, res) => res.send(await this.login(body)));
-    this._expressServer.post('/user/register', async ({ body }, res) => res.send(await this.register(body)));
-    this._expressServer
-      .route('/user/task')
-      .all(authenticateJWT)
-      .post(async ({ body }, res) => res.send(await this.createTask(body)))
-      .get(async (_, res) => res.send(await this.getUserTasks()));
   }
 }
 

@@ -15,7 +15,6 @@ export interface IUserService {
   register: (input: IUserInput) => Promise<IUser>;
   createTask: (input: ITaskInput) => Promise<ITask>;
   getUserTasks: () => Promise<ITask[]>;
-  loadExpressRoutes: () => void;
 }
 
 export interface IJsonWebToken {

@@ -2,6 +2,7 @@ import { injectable } from 'inversify';
 import { Dialect, Sequelize } from 'sequelize';
 import { IDatabase } from './types';
 import setSequelizeModels from './Models';
+import { UserRepository } from './Repositories';
 
 @injectable()
 class SqlDatabase implements IDatabase {
@@ -42,3 +43,4 @@ class SqlDatabase implements IDatabase {
 }
 
 export default SqlDatabase;
+export { UserRepository };
