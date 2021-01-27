@@ -1,22 +1,6 @@
-import { Dialect, Sequelize } from 'sequelize/types';
-import { IUserRepository } from './Repositories/types';
-
-export interface DatabaseParams {
-  database: string;
-  user: string;
-  password: string;
-  host: string;
-  dialect?: Dialect;
-}
-
-export interface IDatabaseConnection {
-  sequelize: Sequelize;
+export interface IDatabase {
   connect: () => Promise<void>;
   disconnect: () => Promise<void>;
-}
-
-export interface IDatabase extends IDatabaseConnection {
-  _userRepository: IUserRepository;
 }
 
 export * from './Repositories/types';

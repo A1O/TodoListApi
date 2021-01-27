@@ -1,17 +1,44 @@
-import { inject, injectable } from 'inversify';
-import setSequelizeModels from './Models';
+import { injectable } from 'inversify';
+import { Dialect, Sequelize } from 'sequelize';
 import { IDatabase } from './types';
-import SequelizeConnection from './SequelizeConnection';
-import { IUserRepository } from './Repositories/types';
-import { DependencyTypes } from '#Container/types';
+import setSequelizeModels from './Models';
 
 @injectable()
-export default class SqlDatabase extends SequelizeConnection implements IDatabase {
-  @inject(DependencyTypes.IUserRepository)
-  _userRepository!: IUserRepository;
+class SqlDatabase implements IDatabase {
+  private sequelize: Sequelize;
 
   constructor() {
-    super();
+    this.sequelize = new Sequelize(
+      <string>process.env.DB_NAME,
+      <string>process.env.DB_USER,
+      <string>process.env.DB_PASS,
+      {
+        host: <string>process.env.DB_HOST,
+        dialect: <Dialect>process.env.DB_DIALECT,
+        logging: false,
+      }
+    );
     setSequelizeModels(this.sequelize);
   }
+
+  connect(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.sequelize
+        .sync()
+        .then(() => {
+          console.log('Mysql connection established...');
+          resolve();
+        })
+        .catch((err) => {
+          console.error('Can not connect to MySQL database', err);
+          reject(err);
+        });
+    });
+  }
+
+  disconnect() {
+    return this.sequelize.close();
+  }
 }
+
+export default SqlDatabase;

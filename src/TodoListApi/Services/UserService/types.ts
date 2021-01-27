@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import { ITask, IUser } from '#types';
 
 export interface IUserInput {
@@ -16,7 +15,7 @@ export interface IUserService {
   register: (input: IUserInput) => Promise<IUser>;
   createTask: (input: ITaskInput) => Promise<ITask>;
   getUserTasks: () => Promise<ITask[]>;
-  prepareExpressRouter: () => Router;
+  loadExpressRoutes: () => void;
 }
 
 export interface IJsonWebToken {

@@ -12,9 +12,7 @@ class Services implements IServices {
   _expressServer!: IExpressServer;
 
   loadServicesOnExpress() {
-    const userServiceRouter = this._userService.prepareExpressRouter();
-
-    this._expressServer.use('/user', userServiceRouter);
+    this._userService.loadExpressRoutes();
     console.log('Services is mounted on Express server...');
   }
 }

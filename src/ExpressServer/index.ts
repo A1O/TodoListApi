@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import { Server } from 'http';
 import { injectable } from 'inversify';
-import { ExpressGetMethod, ExpressMethod, ExpressUse, IExpressServer } from './types';
+import { ExpressGetMethod, ExpressMethod, ExpressRoute, ExpressUse, IExpressServer } from './types';
 
 @injectable()
 class ExpressServer implements IExpressServer {
@@ -16,6 +16,7 @@ class ExpressServer implements IExpressServer {
   put: ExpressMethod;
   delete: ExpressMethod;
   use: ExpressUse;
+  route: ExpressRoute;
 
   constructor() {
     this.port = parseInt(<string>process.env.PORT, 10);
@@ -27,6 +28,7 @@ class ExpressServer implements IExpressServer {
     this.put = this.app.put.bind(this.app);
     this.delete = this.app.delete.bind(this.app);
     this.use = this.app.use.bind(this.app);
+    this.route = this.app.route.bind(this.app);
   }
 
   start() {

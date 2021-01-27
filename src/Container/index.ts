@@ -16,12 +16,17 @@ import JsonWebToken from '#TodoListApi/Services/UserService/JsonWebToken';
 
 const container = new Container();
 
+// Api
 container.bind<ITodoListApi>(DependencyTypes.ITodoListApi).to(TodoListApi).inSingletonScope();
 container.bind<IExpressServer>(DependencyTypes.IExpressServer).to(ExpressServer).inSingletonScope();
+
+// Database
 container.bind<IDatabase>(DependencyTypes.IDatabase).to(SqlDatabase).inSingletonScope();
 container.bind<IUserRepository>(DependencyTypes.IUserRepository).to(UserRepository).inSingletonScope();
-container.bind<IUserService>(DependencyTypes.IUserService).to(UserService).inSingletonScope();
+
+// Services
 container.bind<IServices>(DependencyTypes.IServices).to(Services).inSingletonScope();
+container.bind<IUserService>(DependencyTypes.IUserService).to(UserService).inSingletonScope();
 container.bind<IJsonWebToken>(DependencyTypes.IJsonWebToken).to(JsonWebToken).inSingletonScope();
 
 export default container;
