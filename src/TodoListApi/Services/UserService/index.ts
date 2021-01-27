@@ -61,13 +61,13 @@ class UserService implements IUserService {
   }
 
   loadExpressRoutes() {
-    this._expressServer.post('/login', async ({ body }, { send }) => send(await this.login(body)));
-    this._expressServer.post('/register', async ({ body }, { send }) => send(await this.register(body)));
+    this._expressServer.post('/user/login', async ({ body }, res) => res.send(await this.login(body)));
+    this._expressServer.post('/user/register', async ({ body }, res) => res.send(await this.register(body)));
     this._expressServer
-      .route('/task')
+      .route('/user/task')
       .all(authenticateJWT)
-      .post(async ({ body }, { send }) => send(await this.createTask(body)))
-      .get(async (_, { send }) => send(await this.getUserTasks()));
+      .post(async ({ body }, res) => res.send(await this.createTask(body)))
+      .get(async (_, res) => res.send(await this.getUserTasks()));
   }
 }
 
