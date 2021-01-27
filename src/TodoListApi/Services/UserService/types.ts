@@ -18,3 +18,9 @@ export interface IUserService {
   getUserTasks: () => Promise<ITask[]>;
   prepareExpressRouter: () => Router;
 }
+
+export interface IJsonWebToken {
+  secretKey: string;
+  sign: (id: string) => string;
+  decode: (token: string) => unknown | string;
+}

@@ -8,10 +8,11 @@ import { IExpressServer } from '#ExpressServer/types';
 import { IDatabase, IUserRepository } from '#SqlDatabase/types';
 import SqlDatabase from '#SqlDatabase';
 import { UserRepository } from '#SqlDatabase/Repositories';
-import { IUserService } from '#TodoListApi/Services/UserService/types';
+import { IJsonWebToken, IUserService } from '#TodoListApi/Services/UserService/types';
 import UserService from '#TodoListApi/Services/UserService';
 import { IServices } from '#TodoListApi/Services/types';
 import Services from '#TodoListApi/Services';
+import JsonWebToken from '#TodoListApi/Services/UserService/JsonWebToken';
 
 const container = new Container();
 
@@ -21,5 +22,6 @@ container.bind<IDatabase>(DependencyTypes.IDatabase).to(SqlDatabase).inSingleton
 container.bind<IUserRepository>(DependencyTypes.IUserRepository).to(UserRepository).inSingletonScope();
 container.bind<IUserService>(DependencyTypes.IUserService).to(UserService).inSingletonScope();
 container.bind<IServices>(DependencyTypes.IServices).to(Services).inSingletonScope();
+container.bind<IJsonWebToken>(DependencyTypes.IJsonWebToken).to(JsonWebToken).inSingletonScope();
 
 export default container;

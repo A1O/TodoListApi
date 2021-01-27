@@ -2,20 +2,16 @@ import httpContext from 'express-http-context';
 import express from 'express';
 import { inject, injectable } from 'inversify';
 import { authenticateJWT } from '#ExpressServer';
-import JsonWebToken from './JsonWebToken';
 import { DependencyTypes } from '#Container/types';
 import { IDatabase } from '#SqlDatabase/types';
-import { ITaskInput, IUserInput, IUserService } from './types';
+import { IJsonWebToken, ITaskInput, IUserInput, IUserService } from './types';
 
 @injectable()
 class UserService implements IUserService {
   @inject(DependencyTypes.IDatabase)
   private _database!: IDatabase;
-  private jwtActions: JsonWebToken;
-
-  constructor() {
-    this.jwtActions = new JsonWebToken(<string>process.env.JWT_SECRET_KEY);
-  }
+  @inject(DependencyTypes.IJsonWebToken)
+  private _jwtActions!: IJsonWebToken;
 
   async login({ username, password }: IUserInput) {
     const user = await this._database._userRepository.getUser({ username, password });
@@ -24,7 +20,7 @@ class UserService implements IUserService {
       throw new Error('The username and password you entered did not match our records.');
     }
 
-    return this.jwtActions.sign(user.id);
+    return this._jwtActions.sign(user.id);
   }
 
   async register({ username, password }: IUserInput) {

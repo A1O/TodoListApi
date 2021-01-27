@@ -5,4 +5,5 @@ export const DependencyTypes = {
   IUserRepository: Symbol.for('IUserRepository'),
   IUserService: Symbol.for('IUserService'),
   IServices: Symbol.for('IServices'),
+  IJsonWebToken: Symbol.for('IJsonWebToken'),
 };

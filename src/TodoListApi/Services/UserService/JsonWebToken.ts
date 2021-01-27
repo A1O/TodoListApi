@@ -1,10 +1,13 @@
+import { injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
+import { IJsonWebToken } from './types';
 
-class JsonWebToken {
+@injectable()
+class JsonWebToken implements IJsonWebToken {
   secretKey: string;
 
-  constructor(secretKey: string) {
-    this.secretKey = secretKey;
+  constructor() {
+    this.secretKey = <string>process.env.JWT_SECRET_KEY;
   }
 
   sign(id: string) {
