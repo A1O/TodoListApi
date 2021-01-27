@@ -1,29 +1,30 @@
-import ExpressServer from '#ExpressServer';
-import SqlDatabase from '#SqlDatabase';
-import { IRunnable } from '../types';
-import Services from './Services';
+import { inject, injectable } from 'inversify';
+import { DependencyTypes } from '#Container/types';
+import { ITodoListApi } from './types';
+import { IExpressServer } from '#ExpressServer/types';
+import { IDatabase } from '#SqlDatabase/types';
+import { IControllers } from './Controllers/types';
 
-class TodoListApi implements IRunnable {
-  sqlDatabase: SqlDatabase;
-  expressServer: ExpressServer;
-  services: Services;
-
-  constructor(sqlDatabase: SqlDatabase, expressServer: ExpressServer) {
-    this.sqlDatabase = sqlDatabase;
-    this.expressServer = expressServer;
-    this.services = new Services(this.sqlDatabase);
-    this.services.loadServicesOnExpress(this.expressServer);
-  }
+@injectable()
+class TodoListApi implements ITodoListApi {
+  @inject(DependencyTypes.IExpressServer)
+  _expressServer!: IExpressServer;
+  @inject(DependencyTypes.IDatabase)
+  _database!: IDatabase;
+  @inject(DependencyTypes.IControllers)
+  _controllers!: IControllers;
 
   start() {
-    this.sqlDatabase.connect().then(() => {
-      this.expressServer.start();
+    this._database.connect().then(() => {
+      this._controllers.loadControllersOnExpress();
+      this._expressServer.start();
     });
   }
 
   stop() {
-    this.expressServer.stop();
-    this.sqlDatabase.disconnect();
+    this._database.disconnect().then(() => {
+      this._expressServer.stop();
+    });
   }
 }
 

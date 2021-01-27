@@ -1,18 +1,25 @@
-import User from '../Models/User.model';
+import { injectable } from 'inversify';
+import { IUserRepository, UserInput } from './types';
+import { User } from '../Models';
 
-class UserRepository {
-  private User: typeof User;
+@injectable()
+class UserRepository implements IUserRepository {
+  User: typeof User;
 
-  constructor(userModel: typeof User) {
-    this.User = userModel;
+  constructor() {
+    this.User = User;
   }
 
   async createUser(username: string, password: string) {
     return this.User.create({ username, password });
   }
 
-  async getUser({ username, password }: { username?: string; password?: string }) {
-    const where: { username?: string; password?: string } = {};
+  async getUser({ id, username, password }: UserInput) {
+    const where: { id?: string; username?: string; password?: string } = {};
+
+    if (id) {
+      where.id = id;
+    }
 
     if (username) {
       where.username = username;

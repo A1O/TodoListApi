@@ -1,72 +1,36 @@
-import httpContext from 'express-http-context';
-import express from 'express';
-import SqlDatabase from '#SqlDatabase';
-import { authenticateJWT } from '#ExpressServer';
-import JsonWebToken from './JsonWebToken';
-import Service from '../Service';
+import { inject, injectable } from 'inversify';
+import { DependencyTypes } from '#Container/types';
+import { IUserRepository } from '#SqlDatabase/types';
+import { IJsonWebToken, IUserInput, IUserService } from './types';
 
-class UserService extends Service {
-  private jwtActions: JsonWebToken;
+@injectable()
+class UserService implements IUserService {
+  @inject(DependencyTypes.IUserRepository)
+  private _userRepository!: IUserRepository;
+  @inject(DependencyTypes.IJsonWebToken)
+  private _jwtActions!: IJsonWebToken;
 
-  constructor(sqlDatabase: SqlDatabase) {
-    super(sqlDatabase);
-    this.jwtActions = new JsonWebToken(<string>process.env.JWT_SECRET_KEY);
-  }
-
-  async login({ username, password }: { username: string; password: string }) {
-    const user = await this.sqlDatabase.UserRepository.getUser({ username, password });
+  async login({ username, password }: IUserInput) {
+    const user = await this._userRepository.getUser({ username, password });
 
     if (!user) {
       throw new Error('The username and password you entered did not match our records.');
     }
 
-    return this.jwtActions.sign(user.id);
+    return this._jwtActions.sign(user.id);
   }
 
-  async register({ username, password }: { username: string; password: string }) {
+  async register({ username, password }: IUserInput) {
     // TODO: Check if valid data
 
-    const userExists = await this.sqlDatabase.UserRepository.getUser({ username });
+    const userExists = await this._userRepository.getUser({ username });
     if (userExists) {
       throw new Error('User with this username already exists!');
     }
 
-    const user = await this.sqlDatabase.UserRepository.createUser(username, password);
+    const user = await this._userRepository.createUser(username, password);
 
     return user;
-  }
-
-  async createTask({ title, description }: { title: string; description?: string }) {
-    const userId = httpContext.get('userId');
-    const user = await this.sqlDatabase.UserRepository.getUser(userId);
-
-    if (!user) {
-      throw new Error(`User not found in task creation (id: ${userId})`);
-    }
-
-    return user.createTask({ title, description });
-  }
-
-  private async getUserTasks() {
-    const userId = httpContext.get('userId');
-    const user = await this.sqlDatabase.UserRepository.getUser(userId);
-
-    if (!user) {
-      throw new Error(`User not found in task creation (id: ${userId})`);
-    }
-
-    return user.getTasks();
-  }
-
-  prepareExpressRouter() {
-    const router = express.Router();
-
-    router.post('/login', async (req, res) => res.send(await this.login(req.body)));
-    router.post('/register', async (req, res) => res.send(await this.register(req.body)));
-    router.post('/task', authenticateJWT, async (req, res) => res.send(await this.createTask(req.body)));
-    router.get('/task', authenticateJWT, async (_, res) => res.send(await this.getUserTasks()));
-
-    return router;
   }
 }
 
