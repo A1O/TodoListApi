@@ -1,3 +1,4 @@
+import express from 'express';
 import { inject, injectable } from 'inversify';
 import { IExpressServer } from '#ExpressServer/types';
 import { DependencyTypes } from '#Container/types';
@@ -13,15 +14,16 @@ class UserController implements IUserController {
   private _expressServer!: IExpressServer;
 
   loadUserControllerOnExpress() {
-    this._expressServer.post('/user/login', async ({ body }, res) => res.send(await this._userService.login(body)));
-    this._expressServer.post('/user/register', async ({ body }, res) =>
-      res.send(await this._userService.register(body))
-    );
-    this._expressServer
-      .route('/user/task')
+    const router = express.Router();
+    router.post('/login', async ({ body }, res) => res.send(await this._userService.login(body)));
+    router.post('/register', async ({ body }, res) => res.send(await this._userService.register(body)));
+    router
+      .route('/task')
       .all(authenticateJWT)
       .post(async ({ body }, res) => res.send(await this._userService.createTask(body)))
       .get(async (_, res) => res.send(await this._userService.getUserTasks()));
+
+    this._expressServer.use('/user', router);
   }
 }
 
