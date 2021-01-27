@@ -1,9 +1,7 @@
-import httpContext from 'express-http-context';
 import { inject, injectable } from 'inversify';
 import { DependencyTypes } from '#Container/types';
 import { IUserRepository } from '#SqlDatabase/types';
-import { IJsonWebToken, ITaskInput, IUserInput, IUserService } from './types';
-import { IExpressServer } from '#ExpressServer/types';
+import { IJsonWebToken, IUserInput, IUserService } from './types';
 
 @injectable()
 class UserService implements IUserService {
@@ -11,8 +9,6 @@ class UserService implements IUserService {
   private _userRepository!: IUserRepository;
   @inject(DependencyTypes.IJsonWebToken)
   private _jwtActions!: IJsonWebToken;
-  @inject(DependencyTypes.IExpressServer)
-  private _expressServer!: IExpressServer;
 
   async login({ username, password }: IUserInput) {
     const user = await this._userRepository.getUser({ username, password });
@@ -35,28 +31,6 @@ class UserService implements IUserService {
     const user = await this._userRepository.createUser(username, password);
 
     return user;
-  }
-
-  async createTask({ title, description }: ITaskInput) {
-    const userId = httpContext.get('userId');
-    const user = await this._userRepository.getUser({ id: userId });
-
-    if (!user) {
-      throw new Error(`User not found in task creation (id: ${userId})`);
-    }
-
-    return user.createTask({ title, description });
-  }
-
-  async getUserTasks() {
-    const userId = httpContext.get('userId');
-    const user = await this._userRepository.getUser({ id: userId });
-
-    if (!user) {
-      throw new Error(`User not found in task creation (id: ${userId})`);
-    }
-
-    return user.getTasks();
   }
 }
 
