@@ -16,7 +16,7 @@ class TodoListApi implements ITodoListApi {
 
   start() {
     this._database.connect().then(() => {
-      this._services.loadServicesOnExpress(this._expressServer);
+      this._services.loadServicesOnExpress();
       this._expressServer.start();
     });
   }

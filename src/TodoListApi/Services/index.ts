@@ -8,11 +8,13 @@ import { IServices } from './types';
 class Services implements IServices {
   @inject(DependencyTypes.IUserService)
   _userService!: IUserService;
+  @inject(DependencyTypes.IExpressServer)
+  _expressServer!: IExpressServer;
 
-  loadServicesOnExpress(expressServer: IExpressServer) {
+  loadServicesOnExpress() {
     const userServiceRouter = this._userService.prepareExpressRouter();
 
-    expressServer.use('/user', userServiceRouter);
+    this._expressServer.use('/user', userServiceRouter);
     console.log('Services is mounted on Express server...');
   }
 }
