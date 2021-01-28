@@ -2,8 +2,7 @@
 
 Stack:
 - Inversion of Control
-- Dependency Injection
-- Inversify
+- Dependency Injections
 - Node.js
 - Typescript
 - Express
