@@ -8,8 +8,8 @@ import { IExpressServer } from './types';
 import '#Controllers';
 
 class ExpressServer extends InversifyExpressServer implements IExpressServer {
-  private app: express.Application;
   private httpServer?: Server;
+  app: express.Application;
   port: number;
 
   constructor(container: Container) {

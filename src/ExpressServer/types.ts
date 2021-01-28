@@ -14,6 +14,7 @@ export type ExpressUse = IRouterHandler<express.Application> &
 export type ExpressRoute = (prefix: PathParams) => IRoute;
 
 export interface IExpressServer extends InversifyExpressServer {
+  app: express.Application;
   port: number;
   start: () => void;
   stop: () => void;
