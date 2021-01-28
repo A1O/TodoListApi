@@ -1,7 +1,8 @@
 # Todo List API
 
 Stack:
-- Domain-driven design
+- Inversion of Control
+- Dependency Injection
 - Inversify
 - Node.js
 - Typescript
