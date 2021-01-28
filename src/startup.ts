@@ -1,6 +1,10 @@
+import ExpressServer from '#ExpressServer';
+import SqlDatabase from '#SqlDatabase';
+import TodoListApi from '#TodoListApi';
 import container from '#Container';
-import { DependencyTypes } from '#Container/types';
-import { ITodoListApi } from '#TodoListApi/types';
 
-const todoListApi = container.get<ITodoListApi>(DependencyTypes.ITodoListApi);
+const database = new SqlDatabase();
+const expressServer = new ExpressServer(container);
+const todoListApi = new TodoListApi(database, expressServer);
+
 todoListApi.start();
