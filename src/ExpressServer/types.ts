@@ -1,4 +1,5 @@
 import express, { IRoute, IRouterHandler, IRouterMatcher } from 'express';
+import { InversifyExpressServer } from 'inversify-express-utils';
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 
@@ -12,15 +13,8 @@ export type ExpressUse = IRouterHandler<express.Application> &
 
 export type ExpressRoute = (prefix: PathParams) => IRoute;
 
-export interface IExpressServer {
+export interface IExpressServer extends InversifyExpressServer {
   port: number;
-  get: ExpressGetMethod;
-  post: ExpressMethod;
-  put: ExpressMethod;
-  delete: ExpressMethod;
-  use: ExpressUse;
-  route: ExpressRoute;
-
   start: () => void;
   stop: () => void;
 }

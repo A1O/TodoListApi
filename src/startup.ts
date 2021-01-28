@@ -1,6 +1,11 @@
+import 'reflect-metadata';
 import container from '#Container';
-import { DependencyTypes } from '#Container/types';
-import { ITodoListApi } from '#TodoListApi/types';
+import SqlDatabase from '#SqlDatabase';
+import ExpressServer from '#ExpressServer';
+import TodoListApi from '#TodoListApi';
 
-const todoListApi = container.get<ITodoListApi>(DependencyTypes.ITodoListApi);
+const database = new SqlDatabase();
+const expressServer = new ExpressServer(container);
+const todoListApi = new TodoListApi(database, expressServer);
+
 todoListApi.start();
