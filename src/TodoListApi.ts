@@ -1,8 +1,7 @@
-import { ITodoListApi } from './types';
 import { IDatabase } from '#SqlDatabase/types';
 import { IExpressServer } from '#ExpressServer/types';
 
-class TodoListApi implements ITodoListApi {
+class TodoListApi {
   database: IDatabase;
   expressServer: IExpressServer;
 

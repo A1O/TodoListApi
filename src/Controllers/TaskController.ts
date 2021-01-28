@@ -1,20 +1,21 @@
-// import { inject, injectable } from 'inversify';
-// import { IExpressServer } from '#ExpressServer/types';
-// import { DependencyTypes } from '#Container/types';
-// import { ITaskService } from '#Services/types';
+import { inject } from 'inversify';
+import { controller, interfaces, httpPost, httpGet, request, response } from 'inversify-express-utils';
+import express from 'express';
+import { DependencyTypes } from '#Container/types';
+import { ITaskService } from '#Services/types';
 
-// @injectable()
-// class TaskController {
-//   @inject(DependencyTypes.ITaskService)
-//   private _taskService!: ITaskService;
-//   @inject(DependencyTypes.IExpressServer)
-//   private _expressServer!: IExpressServer;
+@controller('/tasks')
+export class TaskController implements interfaces.Controller {
+  @inject(DependencyTypes.ITaskService)
+  private _taskService!: ITaskService;
 
-//   loadTaskControllerOnExpress() {
-//     this._expressServer.post('/task', async ({ body }, res) => res.send(await this._taskService.createTask(body)));
-//     this._expressServer.get('/tasks', async (_, res) => res.send(await this._taskService.getUserTasks()));
-//   }
-// }
+  @httpPost('/')
+  private async createTesk(@request() { body }: express.Request, @response() res: express.Response) {
+    return res.send(await this._taskService.createTask(body));
+  }
 
-// export default TaskController;
-export default 0;
+  @httpGet('/')
+  private async getTasks(@response() res: express.Response) {
+    return res.send(await this._taskService.getUserTasks());
+  }
+}
