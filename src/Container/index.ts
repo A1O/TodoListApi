@@ -13,7 +13,7 @@ import { TaskService, UserService } from '#Services';
 
 const container = new Container();
 
-// Api
+// Database Repositories
 container.bind<IUserRepository>(DependencyTypes.IUserRepository).to(UserRepository).inSingletonScope();
 
 // Services
