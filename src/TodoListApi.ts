@@ -1,13 +1,13 @@
 import { IDatabase } from '#SqlDatabase/types';
 import { IExpressServer } from '#ExpressServer/types';
-import GraphQLServer from '#GraphQL';
+import { IGraphQLServer } from '#GraphQL/types';
 
 class TodoListApi {
   database: IDatabase;
   expressServer: IExpressServer;
-  graphQL: GraphQLServer;
+  graphQL: IGraphQLServer;
 
-  constructor(database: IDatabase, expressServer: IExpressServer, graphQL: GraphQLServer) {
+  constructor(database: IDatabase, expressServer: IExpressServer, graphQL: IGraphQLServer) {
     this.database = database;
     this.expressServer = expressServer;
     this.graphQL = graphQL;

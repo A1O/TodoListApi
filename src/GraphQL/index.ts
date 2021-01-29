@@ -2,8 +2,9 @@ import { ApolloServer } from 'apollo-server-express';
 import { IExpressServer } from '#ExpressServer/types';
 import typeDefs from './schema';
 import resolvers from './Resolvers';
+import { IGraphQLServer } from './types';
 
-class GraphQLServer extends ApolloServer {
+class GraphQLServer extends ApolloServer implements IGraphQLServer {
   constructor() {
     super({
       playground: true,
