@@ -8,6 +8,8 @@ import GraphQLServer from '#GraphQL';
 const database = new SqlDatabase();
 const graphQLServer = new GraphQLServer();
 const expressServer = new ExpressServer(container);
-const todoListApi = new TodoListApi(database, expressServer, graphQLServer);
+
+graphQLServer.setExpressServer(expressServer);
+const todoListApi = new TodoListApi(database, expressServer);
 
 todoListApi.start();
