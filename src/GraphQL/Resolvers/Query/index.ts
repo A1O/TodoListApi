@@ -1,3 +1,3 @@
-import WorldQueries from './World';
+import TaskQueries from './Task';
 
-export { WorldQueries };
+export { TaskQueries };

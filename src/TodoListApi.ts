@@ -1,17 +1,21 @@
 import { IDatabase } from '#SqlDatabase/types';
 import { IExpressServer } from '#ExpressServer/types';
+import { IRabbitMQClient } from '#FakeRabbitMQClient/types';
 
 class TodoListApi {
-  database: IDatabase;
-  expressServer: IExpressServer;
+  private database: IDatabase;
+  private expressServer: IExpressServer;
+  private rabbitMQClient: IRabbitMQClient;
 
-  constructor(database: IDatabase, expressServer: IExpressServer) {
+  constructor(database: IDatabase, expressServer: IExpressServer, rabbitMQClient: IRabbitMQClient) {
     this.database = database;
     this.expressServer = expressServer;
+    this.rabbitMQClient = rabbitMQClient;
   }
 
   start() {
     this.database.connect().then(() => {
+      this.rabbitMQClient.connect();
       this.expressServer.start();
     });
   }

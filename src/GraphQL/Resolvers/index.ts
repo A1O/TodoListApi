@@ -1,7 +1,12 @@
-import { WorldQueries } from './Query';
+import { AuthMutations, TaskMutations } from './Mutation';
+import { TaskQueries } from './Query';
 
 export default {
   Query: {
-    ...WorldQueries,
+    ...TaskQueries,
+  },
+  Mutation: {
+    ...AuthMutations,
+    ...TaskMutations,
   },
 };
