@@ -1,7 +1,8 @@
+import { IResolvers } from 'apollo-server-express';
 import { AuthMutations, TaskMutations } from './Mutation';
 import { TaskQueries } from './Query';
 
-export default {
+const Resolvers: IResolvers = {
   Query: {
     ...TaskQueries,
   },
@@ -10,3 +11,5 @@ export default {
     ...TaskMutations,
   },
 };
+
+export default Resolvers;

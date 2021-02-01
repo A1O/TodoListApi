@@ -1,5 +1,5 @@
 import { IContext } from '#GraphQL/types';
 
 export default {
-  getUserTasks: (_: never, __: never, { taskService, userId }: IContext) => taskService.getUserTasks(userId),
+  getUserTasks: (_: void, __: void, { taskService, userId }: IContext) => taskService.getUserTasks(userId),
 };

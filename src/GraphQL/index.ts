@@ -22,7 +22,7 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
         return { ...this.dependencies, userId };
       },
       typeDefs,
-      resolvers: resolvers as any,
+      resolvers,
     });
 
     this.dependencies = {
