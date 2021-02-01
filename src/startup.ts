@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import container from '#Container';
 import SqlDatabase from '#SqlDatabase';
+import FakeRabbitMQClient from '#FakeRabbitMQ';
+import GraphQLServer from '#GraphQL';
 import ExpressServer from '#Express';
 import TodoListApi from '#TodoListApi';
-import GraphQLServer from '#GraphQL';
-import FakeRabbitMQClient from '#FakeRabbitMQ';
 
 // Database
 const database = new SqlDatabase();
