@@ -1,18 +1,9 @@
-import { gql } from 'apollo-server';
+import { gql } from 'apollo-server-express';
+import scalarsTypeDefs from './Scalars/schema';
+import queriesTypeDefs from './Resolvers/Query/schema';
+import mutationsTypeDefs from './Resolvers/Mutation/schema';
 
-export default gql`
-  scalar DateTime
-
-  type Query {
-    getUserTasks: [Task]!
-  }
-
-  type Mutation {
-    register(username: String!, password: String!): User!
-    login(username: String!, password: String!): String!
-    createTask(title: String!, description: String): Task!
-  }
-
+const types = gql`
   type User {
     id: String!
     username: String!
@@ -29,3 +20,5 @@ export default gql`
     updatedAt: DateTime!
   }
 `;
+
+export default [scalarsTypeDefs, queriesTypeDefs, mutationsTypeDefs, types];
