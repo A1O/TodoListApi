@@ -5,7 +5,7 @@ import typeDefs from './schema';
 import resolvers from './Resolvers';
 import { IDependencies, IGraphQLServer } from './types';
 import { DependencyTypes } from '#Container/types';
-import { ITaskService, IUserService } from '#Services/types';
+import { ITaskService, IAuthService } from '#Services/types';
 import { IRabbitMQClient } from '#FakeRabbitMQClient/types';
 
 class GraphQLServer extends ApolloServer implements IGraphQLServer {
@@ -15,8 +15,11 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
     super({
       playground: true,
       debug: true,
-      context: () => {
-        return this.dependencies;
+      context: async ({ req, connection }) => {
+        const token = connection ? connection.context.Authorization : req.headers.authorization;
+        const userId = token ? await this.dependencies.authService.getUserIdByToken(token) : null;
+
+        return { ...this.dependencies, userId };
       },
       typeDefs,
       resolvers: resolvers as any,
@@ -24,11 +27,12 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
 
     this.dependencies = {
       rabbitMQClient,
-      userService: container.get<IUserService>(DependencyTypes.IUserService),
+      authService: container.get<IAuthService>(DependencyTypes.IAuthService),
       taskService: container.get<ITaskService>(DependencyTypes.ITaskService),
     };
   }
-  setExpressServer({ app }: IExpressServer) {
+
+  public setExpressServer({ app }: IExpressServer) {
     this.applyMiddleware({
       app,
       bodyParserConfig: {

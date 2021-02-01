@@ -1,10 +1,10 @@
 import { inject, injectable } from 'inversify';
 import { DependencyTypes } from '#Container/types';
 import { IUserRepository } from '#SqlDatabase/types';
-import { IJsonWebToken, IUserInput, IUserService } from './types';
+import { IJsonWebToken, IUserInput, IAuthService } from './types';
 
 @injectable()
-class UserService implements IUserService {
+class AuthService implements IAuthService {
   @inject(DependencyTypes.IUserRepository)
   private _userRepository!: IUserRepository;
   @inject(DependencyTypes.IJsonWebToken)
@@ -32,6 +32,17 @@ class UserService implements IUserService {
 
     return user;
   }
+
+  async getUserIdByToken(token: string) {
+    const data = this._jwtActions.decode(token);
+
+    if (typeof data !== 'object' || !data || !('userId' in data)) {
+      throw new Error('Not valid token');
+    }
+
+    const { userId } = data as { userId: string };
+    return userId;
+  }
 }
 
-export default UserService;
+export default AuthService;

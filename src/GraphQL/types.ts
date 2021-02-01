@@ -1,6 +1,6 @@
 import { ApolloServer } from 'apollo-server-express';
 import { IExpressServer } from '#ExpressServer/types';
-import { ITaskService, IUserService } from '#Services/types';
+import { ITaskService, IAuthService } from '#Services/types';
 import { IRabbitMQClient } from '#FakeRabbitMQClient/types';
 
 export interface IGraphQLServer extends ApolloServer {
@@ -9,6 +9,10 @@ export interface IGraphQLServer extends ApolloServer {
 
 export interface IDependencies {
   rabbitMQClient: IRabbitMQClient;
-  userService: IUserService;
+  authService: IAuthService;
   taskService: ITaskService;
+}
+
+export interface IContext extends IDependencies {
+  userId: string | null;
 }

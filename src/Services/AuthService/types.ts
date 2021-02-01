@@ -5,9 +5,10 @@ export interface IUserInput {
   password: string;
 }
 
-export interface IUserService {
+export interface IAuthService {
   login: (input: IUserInput) => Promise<string>;
   register: (input: IUserInput) => Promise<IUser>;
+  getUserIdByToken: (token: string) => Promise<string>;
 }
 
 export interface IJsonWebToken {

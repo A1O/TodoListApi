@@ -1,5 +1,5 @@
-import { IDependencies } from '#GraphQL/types';
+import { IContext } from '#GraphQL/types';
 
 export default {
-  getUserTasks: (_: never, __: never, { taskService }: IDependencies) => taskService.getUserTasks(),
+  getUserTasks: (_: never, __: never, { taskService, userId }: IContext) => taskService.getUserTasks(userId),
 };

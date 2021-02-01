@@ -7,9 +7,9 @@ import { IUserRepository } from '#SqlDatabase/types';
 import { UserRepository } from '#SqlDatabase';
 
 // Services
-import JsonWebToken from '#Services/UserService/JsonWebToken';
-import { IJsonWebToken, ITaskService, IUserService } from '#Services/types';
-import { TaskService, UserService } from '#Services';
+import JsonWebToken from '#Services/AuthService/JsonWebToken';
+import { IJsonWebToken, ITaskService, IAuthService } from '#Services/types';
+import { TaskService, AuthService } from '#Services';
 
 const container = new Container();
 
@@ -17,7 +17,7 @@ const container = new Container();
 container.bind<IUserRepository>(DependencyTypes.IUserRepository).to(UserRepository).inSingletonScope();
 
 // Services
-container.bind<IUserService>(DependencyTypes.IUserService).to(UserService).inSingletonScope();
+container.bind<IAuthService>(DependencyTypes.IAuthService).to(AuthService).inSingletonScope();
 container.bind<ITaskService>(DependencyTypes.ITaskService).to(TaskService).inSingletonScope();
 container.bind<IJsonWebToken>(DependencyTypes.IJsonWebToken).to(JsonWebToken).inSingletonScope();
 

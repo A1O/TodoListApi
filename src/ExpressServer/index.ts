@@ -53,4 +53,3 @@ class ExpressServer extends InversifyExpressServer implements IExpressServer {
 }
 
 export default ExpressServer;
-export * from './Middleware';

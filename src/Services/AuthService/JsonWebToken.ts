@@ -10,8 +10,8 @@ class JsonWebToken implements IJsonWebToken {
     this.secretKey = <string>process.env.JWT_SECRET_KEY;
   }
 
-  sign(id: string) {
-    return jwt.sign({ id }, this.secretKey);
+  sign(userId: string) {
+    return jwt.sign({ userId }, this.secretKey);
   }
 
   decode(token: string) {
