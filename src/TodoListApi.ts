@@ -1,6 +1,6 @@
 import { IDatabase } from '#SqlDatabase/types';
-import { IExpressServer } from '#ExpressServer/types';
-import { IRabbitMQClient } from '#FakeRabbitMQClient/types';
+import { IExpressServer } from '#Express/types';
+import { IRabbitMQClient } from '#FakeRabbitMQ/types';
 
 class TodoListApi {
   private database: IDatabase;

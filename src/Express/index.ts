@@ -5,7 +5,7 @@ import { Server } from 'http';
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { Container } from 'inversify';
 import { IExpressServer } from './types';
-import '#Controllers';
+import './Controllers';
 
 class ExpressServer extends InversifyExpressServer implements IExpressServer {
   private httpServer?: Server;

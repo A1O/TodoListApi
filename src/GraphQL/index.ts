@@ -1,12 +1,12 @@
 import { ApolloServer } from 'apollo-server-express';
 import { Container } from 'inversify';
-import { IExpressServer } from '#ExpressServer/types';
+import { IExpressServer } from '#Express/types';
 import typeDefs from './schema';
 import resolvers from './Resolvers';
 import { IDependencies, IGraphQLServer } from './types';
 import { DependencyTypes } from '#Container/types';
 import { ITaskService, IAuthService } from '#Services/types';
-import { IRabbitMQClient } from '#FakeRabbitMQClient/types';
+import { IRabbitMQClient } from '#FakeRabbitMQ/types';
 
 class GraphQLServer extends ApolloServer implements IGraphQLServer {
   private dependencies: IDependencies;

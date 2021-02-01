@@ -1,7 +1,7 @@
 import { ApolloServer } from 'apollo-server-express';
-import { IExpressServer } from '#ExpressServer/types';
+import { IExpressServer } from '#Express/types';
 import { ITaskService, IAuthService } from '#Services/types';
-import { IRabbitMQClient } from '#FakeRabbitMQClient/types';
+import { IRabbitMQClient } from '#FakeRabbitMQ/types';
 
 export interface IGraphQLServer extends ApolloServer {
   setExpressServer: (expressServer: IExpressServer) => void;
