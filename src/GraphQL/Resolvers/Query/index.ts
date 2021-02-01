@@ -1,3 +1,3 @@
-import TaskQueries from './Task';
+import TaskQueries from './TaskQueries';
 
 export { TaskQueries };

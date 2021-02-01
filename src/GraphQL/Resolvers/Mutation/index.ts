@@ -1,4 +1,4 @@
-import AuthMutations from './Auth';
-import TaskMutations from './Task';
+import AuthMutations from './AuthMutations';
+import TaskMutations from './TaskMutations';
 
 export { AuthMutations, TaskMutations };
