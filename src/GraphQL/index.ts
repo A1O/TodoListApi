@@ -3,7 +3,7 @@ import { Container } from 'inversify';
 import { IExpressServer } from '#Express/types';
 import typeDefs from './schema';
 import resolvers from './Resolvers';
-import * as scalars from './Scalars';
+import scalars from './Scalars';
 import { IDependencies, IGraphQLServer } from './types';
 import { DependencyTypes } from '#Container/types';
 import { ITaskService, IAuthService } from '#Services/types';

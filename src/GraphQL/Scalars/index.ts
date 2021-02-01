@@ -1,3 +1,5 @@
 import DateTime from './DateTime';
 
-export { DateTime };
+const scalars = { DateTime };
+
+export default scalars;
