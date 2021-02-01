@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server';
 
 export default gql`
+  scalar DateTime
+
   type Query {
     getUserTasks: [Task]!
   }
@@ -15,15 +17,15 @@ export default gql`
     id: String!
     username: String!
     password: String!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
   }
 
   type Task {
     id: String!
     title: String!
     description: String!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
   }
 `;

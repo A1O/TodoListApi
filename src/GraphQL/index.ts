@@ -3,6 +3,7 @@ import { Container } from 'inversify';
 import { IExpressServer } from '#Express/types';
 import typeDefs from './schema';
 import resolvers from './Resolvers';
+import * as scalars from './Scalars';
 import { IDependencies, IGraphQLServer } from './types';
 import { DependencyTypes } from '#Container/types';
 import { ITaskService, IAuthService } from '#Services/types';
@@ -22,7 +23,7 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
         return { ...this.dependencies, userId };
       },
       typeDefs,
-      resolvers,
+      resolvers: { ...resolvers, ...scalars },
     });
 
     this.dependencies = {
