@@ -8,7 +8,7 @@ class AuthService implements IAuthService {
   @inject(DependencyTypes.IUserRepository)
   private _userRepository!: IUserRepository;
   @inject(DependencyTypes.IJsonWebToken)
-  private _jwtActions!: IJsonWebToken;
+  private _jsonWebToken!: IJsonWebToken;
 
   async login({ username, password }: IUserInput) {
     const user = await this._userRepository.getUser({ username, password });
@@ -17,7 +17,7 @@ class AuthService implements IAuthService {
       throw new Error('The username and password you entered did not match our records.');
     }
 
-    return this._jwtActions.sign(user.id);
+    return this._jsonWebToken.sign(user.id);
   }
 
   async register({ username, password }: IUserInput) {
@@ -34,7 +34,7 @@ class AuthService implements IAuthService {
   }
 
   async getUserIdByToken(token: string) {
-    const data = this._jwtActions.decode(token);
+    const data = this._jsonWebToken.decode(token);
 
     if (typeof data !== 'object' || !data || !('userId' in data)) {
       throw new Error('Not valid token');
