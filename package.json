@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/startup.ts",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon --inspect=0.0.0.0:9229 --ext 'ts,json' --watch 'src' ./node_modules/.bin/ts-node -r tsconfig-paths/register ./src/startup.ts",
     "lint": "eslint src --ext .ts"
   },
   "author": "Domas Pozniakas",
