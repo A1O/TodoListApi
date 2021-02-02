@@ -33,7 +33,7 @@ class AuthService implements IAuthService {
     return user;
   }
 
-  async getUserIdByToken(token: string) {
+  async getUserByToken(token: string) {
     const data = this._jsonWebToken.decode(token);
 
     if (typeof data !== 'object' || !data || !('userId' in data)) {
@@ -41,7 +41,7 @@ class AuthService implements IAuthService {
     }
 
     const { userId } = data as { userId: string };
-    return userId;
+    return this._userRepository.getUser({ id: userId });
   }
 }
 

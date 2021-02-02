@@ -1,36 +1,31 @@
 import { ApolloServer } from 'apollo-server-express';
 import { Container } from 'inversify';
+import { GraphQLSchema } from 'graphql';
+import { buildSchema } from 'type-graphql';
 import { IExpressServer } from '#Express/types';
-import typeDefs from './schema';
-import resolvers from './Resolvers';
-import scalars from './Scalars';
-import { IDependencies, IGraphQLServer } from './types';
+import { IContext, IGraphQLServer } from './types';
+import { TaskQueries } from './Resolvers/Query';
+import { IAuthService } from '#Services/types';
 import { DependencyTypes } from '#Container/types';
-import { ITaskService, IAuthService } from '#Services/types';
-import { IRabbitMQClient } from '#FakeRabbitMQ/types';
+import { AuthMutations, TaskMutations } from './Resolvers/Mutation';
 
 class GraphQLServer extends ApolloServer implements IGraphQLServer {
-  private dependencies: IDependencies;
+  private authService: IAuthService;
 
-  constructor(container: Container, rabbitMQClient: IRabbitMQClient) {
+  constructor(container: Container, schema: GraphQLSchema) {
     super({
       playground: true,
       debug: true,
       context: async ({ req, connection }) => {
         const token = connection ? connection.context.Authorization : req.headers.authorization;
-        const userId = token ? await this.dependencies.authService.getUserIdByToken(token) : null;
+        const user = token ? await this.authService.getUserByToken(token) : null;
 
-        return { ...this.dependencies, userId };
+        return { user };
       },
-      typeDefs,
-      resolvers: { ...resolvers, ...scalars },
+      schema,
     });
 
-    this.dependencies = {
-      rabbitMQClient,
-      authService: container.get<IAuthService>(DependencyTypes.IAuthService),
-      taskService: container.get<ITaskService>(DependencyTypes.ITaskService),
-    };
+    this.authService = container.get<IAuthService>(DependencyTypes.IAuthService);
   }
 
   public setExpressServer({ app }: IExpressServer) {
@@ -41,6 +36,16 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
       },
     });
     console.log('GraphQL server loaded...');
+  }
+
+  static async build(container: Container) {
+    const schema = await buildSchema({
+      container,
+      resolvers: [TaskQueries, AuthMutations, TaskMutations],
+      authChecker: ({ context: { user } }: { context: IContext }) => !!user,
+      authMode: 'null',
+    });
+    return new this(container, schema);
   }
 }
 

@@ -1,8 +1,5 @@
 import type Task from '#Entities/Task';
-
-export interface IContext {
-  userId: string;
-}
+import User from '#Entities/User';
 
 export interface ITaskInput {
   title: string;
@@ -10,6 +7,6 @@ export interface ITaskInput {
 }
 
 export interface ITaskService {
-  createTask: (input: ITaskInput, userId: string | null) => Promise<Task>;
-  getUserTasks: (userId: string | null) => Promise<Task[]>;
+  createTask: (input: ITaskInput, user: User) => Promise<Task>;
+  getUserTasks: (user: User) => Promise<Task[]>;
 }

@@ -6,18 +6,22 @@ import {
   HasManyGetAssociationsMixin,
   HasManyHasAssociationMixin,
   Model,
-  Optional,
 } from 'sequelize';
-import { IUser } from '#Entities/types';
+import { ID, ObjectType, Field } from 'type-graphql';
+import { IUser, IUserCreationAttributes } from '#Entities/types';
 import Task from './Task';
 
-type IUserCreationAttributes = Optional<IUser, 'id'>;
-
+@ObjectType()
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {
+  @Field(() => ID)
   public id!: string;
+  @Field()
   public username!: string;
+  @Field()
   public password!: string;
+  @Field()
   public readonly createdAt!: Date;
+  @Field()
   public readonly updatedAt!: Date;
 
   public getTasks!: HasManyGetAssociationsMixin<Task>;

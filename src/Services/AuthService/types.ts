@@ -8,7 +8,7 @@ export interface IUserInput {
 export interface IAuthService {
   login: (input: IUserInput) => Promise<string>;
   register: (input: IUserInput) => Promise<User>;
-  getUserIdByToken: (token: string) => Promise<string>;
+  getUserByToken: (token: string) => Promise<User | null>;
 }
 
 export interface IJsonWebToken {
