@@ -13,7 +13,7 @@ class AuthMutations {
 
   @Authorized()
   @Mutation(() => Task, { nullable: true })
-  async createTask(
+  createTask(
     @Arg('title') title: string,
     @Arg('description') description: string,
     @Ctx() { user }: IContext

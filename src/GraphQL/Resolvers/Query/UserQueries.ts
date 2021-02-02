@@ -9,7 +9,7 @@ import User from '#Entities/User';
 class UserQueries {
   @Authorized()
   @Query(() => User, { nullable: true })
-  async myUser(@Ctx() { user }: IContext): Promise<User> {
+  myUser(@Ctx() { user }: IContext): User {
     return user;
   }
 }

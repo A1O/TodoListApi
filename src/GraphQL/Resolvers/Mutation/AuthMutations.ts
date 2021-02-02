@@ -11,12 +11,12 @@ class AuthMutations {
   _authService!: IAuthService;
 
   @Mutation(() => User)
-  async register(@Arg('username') username: string, @Arg('password') password: string): Promise<User> {
+  register(@Arg('username') username: string, @Arg('password') password: string): Promise<User> {
     return this._authService.register({ username, password });
   }
 
   @Mutation(() => String)
-  async login(@Arg('username') username: string, @Arg('password') password: string): Promise<string> {
+  login(@Arg('username') username: string, @Arg('password') password: string): Promise<string> {
     return this._authService.login({ username, password });
   }
 }
