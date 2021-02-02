@@ -1,10 +1,10 @@
-# Todo List API
+# Node.js Todo List API
 
 Stack:
-- Inversion of Control
-- Dependency Injections
-- Node.js
+- TypeGraphQL
+- Inversify.js (Inversion of Control)
 - Typescript
-- Express
 - Sequelize
 - Docker
+- ESLint / Prettier
+- Visual Studio Code Debugger
