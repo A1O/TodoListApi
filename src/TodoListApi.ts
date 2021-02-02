@@ -1,9 +1,9 @@
-import { IDatabase } from '#SqlDatabase/types';
-import { IExpressServer } from '#ExpressServer/types';
+import type { IDatabase } from '#SqlDatabase/types';
+import type { IExpressServer } from '#Express/types';
 
 class TodoListApi {
-  database: IDatabase;
-  expressServer: IExpressServer;
+  private database: IDatabase;
+  private expressServer: IExpressServer;
 
   constructor(database: IDatabase, expressServer: IExpressServer) {
     this.database = database;

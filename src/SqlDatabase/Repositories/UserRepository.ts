@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
-import { IUserRepository, UserInput } from './types';
 import { User } from '../Models';
+import type { IUserRepository, UserInput } from './types';
 
 @injectable()
 class UserRepository implements IUserRepository {

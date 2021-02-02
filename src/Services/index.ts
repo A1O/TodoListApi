@@ -1,4 +1,4 @@
 import TaskService from './TaskService';
-import UserService from './UserService';
+import AuthService from './AuthService';
 
-export { TaskService, UserService };
+export { TaskService, AuthService };

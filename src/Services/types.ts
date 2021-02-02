@@ -1,2 +1,2 @@
-export * from './UserService/types';
+export * from './AuthService/types';
 export * from './TaskService/types';

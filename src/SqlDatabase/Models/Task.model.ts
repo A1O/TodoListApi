@@ -1,18 +1,8 @@
-import { DataTypes, Model, Optional, Sequelize } from 'sequelize';
-import { ITask } from '#types';
+import { DataTypes } from 'sequelize';
+import type { Sequelize } from 'sequelize';
+import Task from '#Entities/Task';
 
-type ITaskCreationAttributes = Optional<ITask, 'id' | 'description'>;
-
-class Task extends Model<ITask, ITaskCreationAttributes> implements ITask {
-  public id!: string;
-  public title!: string;
-  public description!: string;
-  public userId!: string;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
-}
-
-export const setTaskModelOnSequelize = (sequelize: Sequelize) => {
+export default (sequelize: Sequelize) => {
   Task.init(
     {
       id: {
@@ -39,5 +29,3 @@ export const setTaskModelOnSequelize = (sequelize: Sequelize) => {
 
   return Task;
 };
-
-export default Task;

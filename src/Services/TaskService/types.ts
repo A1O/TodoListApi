@@ -1,4 +1,5 @@
-import { ITask } from '#types';
+import type Task from '#Entities/Task';
+import type User from '#Entities/User';
 
 export interface ITaskInput {
   title: string;
@@ -6,6 +7,6 @@ export interface ITaskInput {
 }
 
 export interface ITaskService {
-  createTask: (input: ITaskInput) => Promise<ITask>;
-  getUserTasks: () => Promise<ITask[]>;
+  createTask: (input: ITaskInput, user: User) => Promise<Task>;
+  getUserTasks: (user: User) => Promise<Task[]>;
 }

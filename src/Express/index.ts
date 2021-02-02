@@ -1,15 +1,15 @@
 import httpContext from 'express-http-context';
 import bodyParser from 'body-parser';
 import express from 'express';
-import { Server } from 'http';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { Container } from 'inversify';
-import { IExpressServer } from './types';
-import '#Controllers';
+import type { Server } from 'http';
+import type { Container } from 'inversify';
+import type { IExpressServer } from './types';
+import './Controllers';
 
 class ExpressServer extends InversifyExpressServer implements IExpressServer {
-  private app: express.Application;
   private httpServer?: Server;
+  app: express.Application;
   port: number;
 
   constructor(container: Container) {
@@ -53,4 +53,3 @@ class ExpressServer extends InversifyExpressServer implements IExpressServer {
 }
 
 export default ExpressServer;
-export * from './Middleware';

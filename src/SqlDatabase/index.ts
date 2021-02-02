@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
-import { Dialect, Sequelize } from 'sequelize';
-import { IDatabase } from './types';
+import { Sequelize } from 'sequelize';
+import type { Dialect } from 'sequelize';
+import type { IDatabase } from './types';
 import setSequelizeModels from './Models';
 import { UserRepository } from './Repositories';
 
