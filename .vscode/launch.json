@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Speak Backend",
+      "name": "TodoListApi",
       "type": "docker",
       "request": "launch",
       "platform": "node",
