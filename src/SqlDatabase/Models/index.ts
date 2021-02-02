@@ -1,6 +1,8 @@
 import { Sequelize } from 'sequelize';
-import Task, { setTaskModelOnSequelize } from './Task.model';
-import User, { setUserModelOnSequelize } from './User.model';
+import setTaskModelOnSequelize from './Task.model';
+import setUserModelOnSequelize from './User.model';
+import User from '#Entities/User';
+import Task from '#Entities/Task';
 
 const setAssociations = () => {
   User.hasMany(Task, {

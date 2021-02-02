@@ -1,4 +1,4 @@
-import { IUser } from '#types';
+import type User from '#Entities/User';
 
 export interface IUserInput {
   username: string;
@@ -7,7 +7,7 @@ export interface IUserInput {
 
 export interface IAuthService {
   login: (input: IUserInput) => Promise<string>;
-  register: (input: IUserInput) => Promise<IUser>;
+  register: (input: IUserInput) => Promise<User>;
   getUserIdByToken: (token: string) => Promise<string>;
 }
 
