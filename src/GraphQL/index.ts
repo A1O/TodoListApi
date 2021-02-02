@@ -4,7 +4,7 @@ import type { GraphQLSchema } from 'graphql';
 import { buildSchema } from 'type-graphql';
 import type { IExpressServer } from '#Express/types';
 import type { IContext, IGraphQLServer } from './types';
-import { TaskQueries } from './Resolvers/Query';
+import { UserQueries } from './Resolvers/Query';
 import type { IAuthService } from '#Services/types';
 import { DependencyTypes } from '#Container/types';
 import { AuthMutations, TaskMutations } from './Resolvers/Mutation';
@@ -41,7 +41,7 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
   static async build(container: Container) {
     const schema = await buildSchema({
       container,
-      resolvers: [TaskQueries, AuthMutations, TaskMutations],
+      resolvers: [UserQueries, AuthMutations, TaskMutations],
       authChecker: ({ context: { user } }: { context: IContext }) => !!user,
       authMode: 'null',
     });

@@ -9,7 +9,7 @@ import type {
 import { Model } from 'sequelize';
 import { ID, ObjectType, Field } from 'type-graphql';
 import type { IUser, IUserCreationAttributes } from '#Entities/types';
-import type Task from './Task';
+import Task from './Task';
 
 @ObjectType()
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {
@@ -24,13 +24,16 @@ class User extends Model<IUser, IUserCreationAttributes> implements IUser {
   @Field()
   public readonly updatedAt!: Date;
 
+  @Field(() => [Task])
+  public get tasks() {
+    return this.getTasks();
+  }
+
   public getTasks!: HasManyGetAssociationsMixin<Task>;
   public addTask!: HasManyAddAssociationMixin<Task, string>;
   public hasTask!: HasManyHasAssociationMixin<Task, string>;
   public countTasks!: HasManyCountAssociationsMixin;
   public createTask!: HasManyCreateAssociationMixin<Task>;
-
-  public readonly tasks?: Task[];
 
   public static associations: {
     tasks: Association<User, Task>;

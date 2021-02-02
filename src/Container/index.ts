@@ -12,7 +12,7 @@ import type { IJsonWebToken, ITaskService, IAuthService } from '#Services/types'
 
 // GraphQL Resolvers
 import { TaskService, AuthService } from '#Services';
-import { TaskQueries } from '#GraphQL/Resolvers/Query';
+import { UserQueries } from '#GraphQL/Resolvers/Query';
 import { AuthMutations, TaskMutations } from '#GraphQL/Resolvers/Mutation';
 
 const container = new Container();
@@ -26,7 +26,7 @@ container.bind<ITaskService>(DependencyTypes.ITaskService).to(TaskService).inSin
 container.bind<IJsonWebToken>(DependencyTypes.IJsonWebToken).to(JsonWebToken).inSingletonScope();
 
 // GraphQL Resolvers
-container.bind<TaskQueries>(TaskQueries).to(TaskQueries).inSingletonScope();
+container.bind<UserQueries>(UserQueries).to(UserQueries).inSingletonScope();
 container.bind<AuthMutations>(AuthMutations).to(AuthMutations).inSingletonScope();
 container.bind<TaskMutations>(TaskMutations).to(TaskMutations).inSingletonScope();
 
