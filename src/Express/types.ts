@@ -1,5 +1,6 @@
-import express, { IRoute, IRouterHandler, IRouterMatcher } from 'express';
-import { InversifyExpressServer } from 'inversify-express-utils';
+import express from 'express';
+import type { IRoute, IRouterHandler, IRouterMatcher } from 'express';
+import type { InversifyExpressServer } from 'inversify-express-utils';
 
 export type PathParams = string | RegExp | Array<string | RegExp>;
 

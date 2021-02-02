@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import type { Sequelize } from 'sequelize';
 import setTaskModelOnSequelize from './Task.model';
 import setUserModelOnSequelize from './User.model';
 import User from '#Entities/User';

@@ -1,5 +1,5 @@
-import { IDatabase } from '#SqlDatabase/types';
-import { IExpressServer } from '#Express/types';
+import type { IDatabase } from '#SqlDatabase/types';
+import type { IExpressServer } from '#Express/types';
 
 class TodoListApi {
   private database: IDatabase;

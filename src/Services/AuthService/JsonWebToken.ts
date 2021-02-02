@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
-import { IJsonWebToken } from './types';
+import type { IJsonWebToken } from './types';
 
 @injectable()
 class JsonWebToken implements IJsonWebToken {

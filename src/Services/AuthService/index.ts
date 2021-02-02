@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { DependencyTypes } from '#Container/types';
-import { IUserRepository } from '#SqlDatabase/types';
-import { IJsonWebToken, IUserInput, IAuthService } from './types';
+import type { IUserRepository } from '#SqlDatabase/types';
+import type { IJsonWebToken, IUserInput, IAuthService } from './types';
 
 @injectable()
 class AuthService implements IAuthService {

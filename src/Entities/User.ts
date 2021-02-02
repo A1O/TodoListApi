@@ -1,15 +1,15 @@
-import {
+import type {
   Association,
   HasManyAddAssociationMixin,
   HasManyCountAssociationsMixin,
   HasManyCreateAssociationMixin,
   HasManyGetAssociationsMixin,
   HasManyHasAssociationMixin,
-  Model,
 } from 'sequelize';
+import { Model } from 'sequelize';
 import { ID, ObjectType, Field } from 'type-graphql';
-import { IUser, IUserCreationAttributes } from '#Entities/types';
-import Task from './Task';
+import type { IUser, IUserCreationAttributes } from '#Entities/types';
+import type Task from './Task';
 
 @ObjectType()
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {

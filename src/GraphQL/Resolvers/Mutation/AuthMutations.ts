@@ -1,7 +1,7 @@
 import { Arg, Mutation, Resolver } from 'type-graphql';
 import { inject, injectable } from 'inversify';
 import { DependencyTypes } from '#Container/types';
-import { IAuthService } from '#Services/types';
+import type { IAuthService } from '#Services/types';
 import User from '#Entities/User';
 
 @injectable()

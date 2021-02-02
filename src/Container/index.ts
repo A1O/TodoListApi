@@ -3,12 +3,14 @@ import { Container } from 'inversify';
 import { DependencyTypes } from './types';
 
 // Database Repositories
-import { IUserRepository } from '#SqlDatabase/types';
 import { UserRepository } from '#SqlDatabase';
+import type { IUserRepository } from '#SqlDatabase/types';
 
 // Services
 import JsonWebToken from '#Services/AuthService/JsonWebToken';
-import { IJsonWebToken, ITaskService, IAuthService } from '#Services/types';
+import type { IJsonWebToken, ITaskService, IAuthService } from '#Services/types';
+
+// GraphQL Resolvers
 import { TaskService, AuthService } from '#Services';
 import { TaskQueries } from '#GraphQL/Resolvers/Query';
 import { AuthMutations, TaskMutations } from '#GraphQL/Resolvers/Mutation';

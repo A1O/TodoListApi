@@ -1,10 +1,10 @@
 import httpContext from 'express-http-context';
 import bodyParser from 'body-parser';
 import express from 'express';
-import { Server } from 'http';
 import { InversifyExpressServer } from 'inversify-express-utils';
-import { Container } from 'inversify';
-import { IExpressServer } from './types';
+import type { Server } from 'http';
+import type { Container } from 'inversify';
+import type { IExpressServer } from './types';
 import './Controllers';
 
 class ExpressServer extends InversifyExpressServer implements IExpressServer {

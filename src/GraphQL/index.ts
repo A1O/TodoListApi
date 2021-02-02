@@ -1,11 +1,11 @@
 import { ApolloServer } from 'apollo-server-express';
-import { Container } from 'inversify';
-import { GraphQLSchema } from 'graphql';
+import type { Container } from 'inversify';
+import type { GraphQLSchema } from 'graphql';
 import { buildSchema } from 'type-graphql';
-import { IExpressServer } from '#Express/types';
-import { IContext, IGraphQLServer } from './types';
+import type { IExpressServer } from '#Express/types';
+import type { IContext, IGraphQLServer } from './types';
 import { TaskQueries } from './Resolvers/Query';
-import { IAuthService } from '#Services/types';
+import type { IAuthService } from '#Services/types';
 import { DependencyTypes } from '#Container/types';
 import { AuthMutations, TaskMutations } from './Resolvers/Mutation';
 

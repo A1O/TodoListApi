@@ -2,8 +2,8 @@ import { inject, injectable } from 'inversify';
 import { Authorized, Ctx, Query, Resolver } from 'type-graphql';
 import { DependencyTypes } from '#Container/types';
 import Task from '#Entities/Task';
-import { ITaskService } from '#Services/types';
-import { IContext } from '#GraphQL/types';
+import type { ITaskService } from '#Services/types';
+import type { IContext } from '#GraphQL/types';
 
 @injectable()
 @Resolver()

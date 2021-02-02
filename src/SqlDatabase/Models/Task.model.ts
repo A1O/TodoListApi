@@ -1,4 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes } from 'sequelize';
+import type { Sequelize } from 'sequelize';
 import Task from '#Entities/Task';
 
 export default (sequelize: Sequelize) => {

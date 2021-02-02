@@ -1,5 +1,5 @@
 import type Task from '#Entities/Task';
-import User from '#Entities/User';
+import type User from '#Entities/User';
 
 export interface ITaskInput {
   title: string;

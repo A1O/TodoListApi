@@ -1,4 +1,5 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import { DataTypes } from 'sequelize';
+import type { Sequelize } from 'sequelize';
 import User from '#Entities/User';
 
 export default (sequelize: Sequelize) => {
