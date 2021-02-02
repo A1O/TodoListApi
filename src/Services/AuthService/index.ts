@@ -28,9 +28,7 @@ class AuthService implements IAuthService {
       throw new Error('User with this username already exists!');
     }
 
-    const user = await this._userRepository.createUser(username, password);
-
-    return user;
+    return this._userRepository.createUser(username, password);
   }
 
   async getUserByToken(token: string) {
