@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import type { Sequelize } from 'sequelize';
 import User from '#Entities/User';
+import { UserRole } from '#Entities/User/types';
 
 export default (sequelize: Sequelize) => {
   User.init(
@@ -16,6 +17,10 @@ export default (sequelize: Sequelize) => {
       },
       password: {
         type: new DataTypes.STRING(128),
+        allowNull: false,
+      },
+      role: {
+        type: DataTypes.ENUM(...Object.values(UserRole)),
         allowNull: false,
       },
     },

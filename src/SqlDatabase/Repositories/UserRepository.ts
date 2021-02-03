@@ -1,4 +1,5 @@
 import { injectable } from 'inversify';
+import { UserRole } from '#Entities/User/types';
 import { User } from '../Models';
 import type { IUserRepository, UserInput } from './types';
 
@@ -10,8 +11,8 @@ class UserRepository implements IUserRepository {
     this.User = User;
   }
 
-  async createUser(username: string, password: string) {
-    return this.User.create({ username, password });
+  async createUser(username: string, password: string, role = UserRole.USER) {
+    return this.User.create({ username, password, role });
   }
 
   async getUser({ id, username, password }: UserInput) {
