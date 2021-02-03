@@ -8,8 +8,8 @@ import type {
 } from 'sequelize';
 import { Model } from 'sequelize';
 import { ID, ObjectType, Field } from 'type-graphql';
-import type { IUser, IUserCreationAttributes } from '#Entities/types';
-import Task from './Task';
+import type { IUser, IUserCreationAttributes } from './types';
+import Task from '../Task';
 
 @ObjectType()
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {

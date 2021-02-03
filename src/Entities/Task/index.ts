@@ -1,6 +1,6 @@
 import { Model } from 'sequelize';
 import { Field, ID, ObjectType } from 'type-graphql';
-import type { ITask, ITaskCreationAttributes } from '#Entities/types';
+import type { ITask, ITaskCreationAttributes } from '#Entities/Task/types';
 
 @ObjectType()
 class Task extends Model<ITask, ITaskCreationAttributes> implements ITask {
