@@ -14,7 +14,7 @@ import Task from '../Task';
 @ObjectType()
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {
   @Field(() => ID)
-  public id!: string;
+  public userId!: string;
   @Field()
   public username!: string;
   @Field()

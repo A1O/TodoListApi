@@ -6,7 +6,7 @@ import { UserRole } from '#Entities/User/types';
 export default (sequelize: Sequelize) => {
   User.init(
     {
-      id: {
+      userId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,

@@ -15,11 +15,11 @@ class UserRepository implements IUserRepository {
     return this.User.create({ username, password, role });
   }
 
-  async getUser({ id, username, password }: UserInput) {
-    const where: { id?: string; username?: string; password?: string } = {};
+  async getUser({ userId, username, password }: UserInput) {
+    const where: { userId?: string; username?: string; password?: string } = {};
 
-    if (id) {
-      where.id = id;
+    if (userId) {
+      where.userId = userId;
     }
 
     if (username) {

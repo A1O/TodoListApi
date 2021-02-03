@@ -2,7 +2,7 @@ import type { UserRole } from '#Entities/User/types';
 import type { User } from '#SqlDatabase/Models';
 
 export interface UserInput {
-  id?: string;
+  userId?: string;
   username?: string;
   password?: string;
 }

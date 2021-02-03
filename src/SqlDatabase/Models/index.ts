@@ -6,7 +6,7 @@ import Task from '#Entities/Task';
 
 const setAssociations = () => {
   User.hasMany(Task, {
-    sourceKey: 'id',
+    sourceKey: 'userId',
     foreignKey: 'userId',
     as: 'tasks',
   });

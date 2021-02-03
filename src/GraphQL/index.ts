@@ -3,11 +3,12 @@ import type { Container } from 'inversify';
 import type { GraphQLSchema } from 'graphql';
 import { buildSchema } from 'type-graphql';
 import type { IExpressServer } from '#Express/types';
-import type { IContext, IGraphQLServer } from './types';
+import type { IGraphQLServer } from './types';
 import { UserQueries } from './Resolvers/Query';
 import type { IAuthService } from '#Services/types';
 import { DependencyTypes } from '#Container/types';
 import { AuthMutations, TaskMutations } from './Resolvers/Mutation';
+import authChecker from './authChecker';
 
 class GraphQLServer extends ApolloServer implements IGraphQLServer {
   private authService: IAuthService;
@@ -42,7 +43,7 @@ class GraphQLServer extends ApolloServer implements IGraphQLServer {
     const schema = await buildSchema({
       container,
       resolvers: [UserQueries, AuthMutations, TaskMutations],
-      authChecker: ({ context: { user } }: { context: IContext }) => !!user,
+      authChecker,
       authMode: 'null',
     });
     return new this(container, schema);

@@ -5,7 +5,7 @@ import Task from '#Entities/Task';
 export default (sequelize: Sequelize) => {
   Task.init(
     {
-      id: {
+      taskId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,

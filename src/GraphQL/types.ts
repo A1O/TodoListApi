@@ -8,3 +8,9 @@ export interface IGraphQLServer extends ApolloServer {
 export interface IContext {
   user: User;
 }
+
+export enum AuthorizationType {
+  ONLY_USER = 'onlyUser',
+  USER = 'USER',
+  ADMIN = 'ADMIN',
+}

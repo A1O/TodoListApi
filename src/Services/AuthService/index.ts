@@ -17,7 +17,7 @@ class AuthService implements IAuthService {
       throw new Error('The username and password you entered did not match our records.');
     }
 
-    return this._jsonWebToken.sign(user.id);
+    return this._jsonWebToken.sign(user.userId);
   }
 
   async register({ username, password }: IUserInput) {
@@ -39,7 +39,7 @@ class AuthService implements IAuthService {
     }
 
     const { userId } = data as { userId: string };
-    return this._userRepository.getUser({ id: userId });
+    return this._userRepository.getUser({ userId });
   }
 }
 

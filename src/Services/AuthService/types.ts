@@ -13,6 +13,6 @@ export interface IAuthService {
 
 export interface IJsonWebToken {
   secretKey: string;
-  sign: (id: string) => string;
+  sign: (userId: string) => string;
   decode: (token: string) => unknown | string;
 }

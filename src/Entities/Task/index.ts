@@ -5,7 +5,7 @@ import type { ITask, ITaskCreationAttributes } from '#Entities/Task/types';
 @ObjectType()
 class Task extends Model<ITask, ITaskCreationAttributes> implements ITask {
   @Field(() => ID)
-  public id!: string;
+  public taskId!: string;
 
   @Field()
   public title!: string;

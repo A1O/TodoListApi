@@ -6,10 +6,10 @@ export enum UserRole {
 }
 
 export interface IUser {
-  id: string;
+  userId: string;
   username: string;
   password: string;
   role: UserRole;
 }
 
-export type IUserCreationAttributes = Optional<IUser, 'id'>;
+export type IUserCreationAttributes = Optional<IUser, 'userId'>;

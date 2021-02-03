@@ -1,10 +1,10 @@
 import { Optional } from 'sequelize';
 
 export interface ITask {
-  id: string;
+  taskId: string;
   title: string;
   description?: string;
   userId: string;
 }
 
-export type ITaskCreationAttributes = Optional<ITask, 'id' | 'description'>;
+export type ITaskCreationAttributes = Optional<ITask, 'taskId' | 'description'>;
