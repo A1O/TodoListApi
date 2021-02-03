@@ -7,9 +7,10 @@ import type {
   HasManyHasAssociationMixin,
 } from 'sequelize';
 import { Model } from 'sequelize';
-import { ID, ObjectType, Field, registerEnumType } from 'type-graphql';
+import { ID, ObjectType, Field, registerEnumType, Authorized } from 'type-graphql';
 import { IUser, IUserCreationAttributes, UserRole } from './types';
 import Task from '../Task';
+import { AuthorizationType } from '#GraphQL/types';
 
 @ObjectType()
 class User extends Model<IUser, IUserCreationAttributes> implements IUser {
@@ -17,7 +18,9 @@ class User extends Model<IUser, IUserCreationAttributes> implements IUser {
   public userId!: string;
   @Field()
   public username!: string;
-  @Field()
+
+  @Authorized(AuthorizationType.ONLY_USER)
+  @Field({ nullable: true })
   public password!: string;
 
   @Field(() => UserRole)

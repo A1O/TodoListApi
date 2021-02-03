@@ -14,3 +14,5 @@ export enum AuthorizationType {
   USER = 'USER',
   ADMIN = 'ADMIN',
 }
+
+export type Root = { [key: string]: unknown };
