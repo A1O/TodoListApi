@@ -7,7 +7,7 @@ import type { IContext } from '#GraphQL/types';
 
 @injectable()
 @Resolver()
-class AuthMutations {
+class TaskMutations {
   @inject(DependencyTypes.ITaskService)
   _taskService!: ITaskService;
 
@@ -22,4 +22,4 @@ class AuthMutations {
   }
 }
 
-export default AuthMutations;
+export default TaskMutations;
