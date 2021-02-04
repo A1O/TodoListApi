@@ -1,9 +1,6 @@
-import { Dialect } from 'sequelize/types';
-
-export interface DatabaseParams {
-  database: string;
-  user: string;
-  password: string;
-  host: string;
-  dialect?: Dialect;
+export interface IDatabase {
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
 }
+
+export * from './Repositories/types';

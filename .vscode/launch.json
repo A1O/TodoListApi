@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "TodoListApi",
+      "type": "docker",
+      "request": "launch",
+      "platform": "node",
+      "node": {
+        "restart": true,
+        "localRoot": "${workspaceFolder}",
+        "remoteRoot": "/app",
+        "sourceMapPathOverrides": {
+          "/app/src/*": "${workspaceRoot}/src/*"
+        }
+      }
+    }
+  ]
+}

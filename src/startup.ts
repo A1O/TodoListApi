@@ -1,14 +1,22 @@
-import ExpressServer from '#ExpressServer';
+import 'reflect-metadata';
+import container from '#Container';
 import SqlDatabase from '#SqlDatabase';
+import GraphQLServer from '#GraphQL';
+import ExpressServer from '#Express';
 import TodoListApi from '#TodoListApi';
 
-const sqlDatabase = new SqlDatabase({
-  database: <string>process.env.DB_NAME,
-  user: <string>process.env.DB_USER,
-  password: <string>process.env.DB_PASS,
-  host: <string>process.env.DB_HOST,
-});
-const expressServer = new ExpressServer(parseInt(<string>process.env.PORT, 10));
+async function startup() {
+  // Database
+  const database = new SqlDatabase();
 
-const todoListApi = new TodoListApi(sqlDatabase, expressServer);
-todoListApi.start();
+  // API
+  const graphQLServer = await GraphQLServer.build(container);
+  const expressServer = new ExpressServer(container);
+  graphQLServer.setExpressServer(expressServer);
+
+  // TodoListApi
+  const todoListApi = new TodoListApi(database, expressServer);
+  todoListApi.start();
+}
+
+startup();
